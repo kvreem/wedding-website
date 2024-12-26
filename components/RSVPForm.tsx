@@ -31,7 +31,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
             />
           </div>
           <div className="flex justify-between items-center gap-4 pt-4">
-            <ActionButton type="submit">
+            <ActionButton onClick={handleSubmit}>
               Confirm RSVP
             </ActionButton>
             <ActionButton onClick={onClose}>
