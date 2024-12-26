@@ -1,4 +1,5 @@
 import '@root/global.scss';
+import '../styles/globals.css';
 
 import * as React from 'react';
 

@@ -1,15 +1,32 @@
-.root {
-  background: var(--theme-border);
-  height: calc(var(--font-size) * var(--theme-line-height-base));
+.barLoader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-family: monospace;
+}
+
+.progressText {
+  font-size: 1.2rem;
+  color: #333;
+  text-align: center;
+  min-height: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 300px;
   white-space: nowrap;
-  text-align: left;
-  vertical-align: bottom;
-  display: block;
+}
+
+.percentage {
+  font-size: 1rem;
+  opacity: 0.7;
 }
 
 .bar {
-  background: linear-gradient(to right, transparent, var(--theme-text));
-  height: 100%;
-  width: 0%;
-  transition: width 0.1s linear;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: -1px;
+  white-space: pre;
+  color: #333;
 }

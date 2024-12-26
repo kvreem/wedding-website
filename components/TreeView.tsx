@@ -13,13 +13,18 @@ interface TreeViewProps {
   isRoot?: boolean;
   isLastChild?: boolean;
   parentLines?: boolean[];
+  onClick?: () => void;
 }
 
-const TreeView: React.FC<TreeViewProps> = ({ defaultValue = false, title, children, depth = 0, isFile = false, isRoot = false, isLastChild = false, parentLines = [] }) => {
+const TreeView: React.FC<TreeViewProps> = ({ defaultValue = false, title, children, depth = 0, isFile = false, isRoot = false, isLastChild = false, parentLines = [], onClick }) => {
   const [show, setShow] = React.useState<boolean>(defaultValue);
 
   const onToggleShow = (): void => {
-    if (!isFile) setShow((prevShow) => !prevShow);
+    if (isFile && onClick) {
+      onClick();
+    } else if (!isFile) {
+      setShow((prevShow) => !prevShow);
+    }
   };
 
   const hasChildren = React.Children.count(children) > 0;
