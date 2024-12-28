@@ -16,6 +16,8 @@ import BarProgress from '../components/BarProgress';
 import VenueSection from '../components/VenueSection';
 import StaysSection from '../components/StaysSection';
 import TravelSection from '../components/TravelSection';
+import FAQSection from '../components/FAQSection';
+import ConciergeSection from '../components/ConciergeSection';
 
 interface WeatherData {
   hourly: {
@@ -36,6 +38,8 @@ export default function HomePage() {
   const [showVenue, setShowVenue] = useState(false);
   const [showStays, setShowStays] = useState(false);
   const [showTravel, setShowTravel] = useState(false);
+  const [showFAQ, setShowFAQ] = useState(false);
+  const [showConcierge, setShowConcierge] = useState(false);
   const [playlistLoading, setPlaylistLoading] = useState(true);
   const [storyHasPlayed, setStoryHasPlayed] = useState(false);
   const [playlistProgress, setPlaylistProgress] = useState(0);
@@ -117,12 +121,15 @@ export default function HomePage() {
     setShowVenue(false);
     setShowStays(false);
     setShowTravel(false);
+    setShowFAQ(false);
+    setShowConcierge(false);
     setSelectedImage(imageName);
   };
 
   const handleRSVPClick = () => {
     setShowRSVP(true);
     setShowPlaylist(false);
+    setShowConcierge(false);
     setSelectedImage(null);
   };
 
@@ -130,6 +137,7 @@ export default function HomePage() {
     setShowStory(true);
     setShowRSVP(false);
     setShowPlaylist(false);
+    setShowConcierge(false);
     setSelectedImage(null);
   };
 
@@ -140,6 +148,8 @@ export default function HomePage() {
     setShowVenue(section === 'venue');
     setShowStays(section === 'stays');
     setShowTravel(section === 'travel');
+    setShowFAQ(section === 'faq');
+    setShowConcierge(section === 'concierge');
     setSelectedImage(null);
   };
 
@@ -149,6 +159,8 @@ export default function HomePage() {
     setShowVenue(false);
     setShowStays(false);
     setShowTravel(false);
+    setShowFAQ(false);
+    setShowConcierge(false);
     setSelectedImage(null);
     setShowPlaylist(true);
     setPlaylistLoading(true);
@@ -265,7 +277,7 @@ export default function HomePage() {
                     onClick={() => handleMenuClick('travel')}
                   />
                   <TreeView 
-                    title="Venue" 
+                    title="Programme" 
                     isFile 
                     onClick={() => handleMenuClick('venue')}
                   />
@@ -278,12 +290,12 @@ export default function HomePage() {
                 <TreeView 
                   title="FAQ" 
                   isFile 
-                  onClick={handleMenuClick}
+                  onClick={() => handleMenuClick('faq')}
                 />
                 <TreeView 
                   title="Concierge" 
                   isFile 
-                  onClick={handleMenuClick}
+                  onClick={() => handleMenuClick('concierge')}
                 />
                 <TreeView 
                   title="Playlist" 
@@ -303,7 +315,7 @@ export default function HomePage() {
               <RSVPForm onClose={() => setShowRSVP(false)} />
             ) : showStory ? (
               <Story 
-                onClose={() => setShowStory(false)} 
+                onClose={() => setShowStory(false)}
                 hasPlayed={storyHasPlayed}
                 onAutoPlayComplete={() => setStoryHasPlayed(true)}
               />
@@ -313,6 +325,10 @@ export default function HomePage() {
               <StaysSection onClose={() => setShowStays(false)} />
             ) : showTravel ? (
               <TravelSection onClose={() => setShowTravel(false)} />
+            ) : showFAQ ? (
+              <FAQSection onClose={() => setShowFAQ(false)} />
+            ) : showConcierge ? (
+              <ConciergeSection onClose={() => setShowConcierge(false)} />
             ) : showPlaylist ? (
               <div className="relative">
                 <div className="absolute top-0 right-0 -mt-4 -mr-4 z-50">

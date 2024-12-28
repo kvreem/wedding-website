@@ -4,6 +4,7 @@ import Card from '@components/Card';
 import ActionButton from '@components/ActionButton';
 import Button from '@components/Button';
 import Badge from '@components/Badge';
+import Divider from '@components/Divider';
 
 interface StaysSectionProps {
   onClose: () => void;
@@ -35,7 +36,7 @@ const StaysSection: React.FC<StaysSectionProps> = ({ onClose }) => {
                   theme="PRIMARY"
                   onClick={() => window.open('https://casacook.com/casa-cook-el-gouna', '_blank')}
                 >
-                  Book Now
+                  Visit Website
                 </Button>
                 <div className={styles.badgeContainer}>
                   <Badge>5 min from venue</Badge>
@@ -57,7 +58,7 @@ const StaysSection: React.FC<StaysSectionProps> = ({ onClose }) => {
                   theme="PRIMARY"
                   onClick={() => window.open('https://www.marriott.com/en-us/hotels/hrgsi-sheraton-miramar-resort-el-gouna/overview/', '_blank')}
                 >
-                  Book Now
+                  Visit Website
                 </Button>
                 <div className={styles.badgeContainer}>
                   <Badge>9 min from venue</Badge>
@@ -79,13 +80,18 @@ const StaysSection: React.FC<StaysSectionProps> = ({ onClose }) => {
                   theme="PRIMARY"
                   onClick={() => window.open('https://www.cooksclub.com/en', '_blank')}
                 >
-                  Book Now
+                  Visit Website
                 </Button>
                 <div className={styles.badgeContainer}>
                   <Badge>8 min from venue</Badge>
                 </div>
               </Card>
             </div>
+          </div>
+          
+          <div className={styles.disclaimerSection}>
+            <Divider />
+            <p className={styles.disclaimer}>Our concierge will reach out after your RSVP to assist with booking.</p>
           </div>
         </Card>
       </div>

@@ -9,8 +9,9 @@ type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   autoPlay?: string;
   autoPlaySpeedMS?: number;
   isBlink?: boolean;
+  onAutoPlayComplete?: () => void;
 };
-function TextArea({ autoPlay, autoPlaySpeedMS = 40, isBlink, placeholder, onChange, ...rest }: TextAreaProps) {
+function TextArea({ autoPlay, autoPlaySpeedMS = 40, isBlink, placeholder, onChange, onAutoPlayComplete, ...rest }: TextAreaProps) {
   const textAreaRef = React.useRef<HTMLTextAreaElement | null>(null);
   const measurementRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -56,6 +57,9 @@ function TextArea({ autoPlay, autoPlaySpeedMS = 40, isBlink, placeholder, onChan
         if (autoPlayIndexRef.current > autoPlay.length) {
           setIsAutoPlaying(false);
           clearInterval(autoPlayIntervalRef.current!);
+          if (onAutoPlayComplete) {
+            onAutoPlayComplete();
+          }
           return;
         }
         const newText = autoPlay.slice(0, autoPlayIndexRef.current);

@@ -1,9 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Card from './Card';
 import TextArea from './TextArea';
 import ActionButton from './ActionButton';
+import Image from 'next/image';
+import { ImageTrail } from "../fancy/components/image/image-trail";
 
 interface StoryProps {
   onClose: () => void;
@@ -23,29 +25,45 @@ Heidi and Kareem can't wait to share this next chapter with you and are so grate
 
 const Story: React.FC<StoryProps> = ({ onClose, hasPlayed, onAutoPlayComplete }) => {
   const [isFastForwarded, setIsFastForwarded] = React.useState(false);
+  const [showTrail, setShowTrail] = React.useState(false);
+  const trailContainerRef = useRef<HTMLDivElement>(null);
 
   const handleFastForward = () => {
     setIsFastForwarded(true);
     onAutoPlayComplete();
+    setShowTrail(true);
+  };
+
+  const handleAutoPlayComplete = () => {
+    onAutoPlayComplete();
+    setShowTrail(true);
   };
 
   const showFastForward = !hasPlayed && !isFastForwarded;
 
+  // Images in specific order
+  const storyImages = [
+    'drag1.jpg',
+    'drag2.jpg',
+    'drag3.jpg',
+    'drag4.jpg'
+  ];
+
   return (
     <div className="w-full max-w-[90vw] md:max-w-[600px] mx-auto px-4">
       <Card title="Our Story">
-        <div className="space-y-8 py-4">
+        <div className="space-y-8 py-4 relative">
           <TextArea
             autoPlay={!hasPlayed && !isFastForwarded ? storyText : undefined}
             autoPlaySpeedMS={50}
             readOnly
             value={(hasPlayed || isFastForwarded) ? storyText : undefined}
-            onAutoPlayComplete={onAutoPlayComplete}
+            onAutoPlayComplete={handleAutoPlayComplete}
           />
-          <div className="flex justify-between items-center pt-4">
+          <div className="flex justify-between items-center pt-4 relative z-50">
             {showFastForward && (
               <ActionButton onClick={handleFastForward}>
-                >>
+                {'>>'}
               </ActionButton>
             )}
             <div className={showFastForward ? '' : 'ml-auto'}>
@@ -54,6 +72,41 @@ const Story: React.FC<StoryProps> = ({ onClose, hasPlayed, onAutoPlayComplete })
               </ActionButton>
             </div>
           </div>
+
+          {(showTrail || hasPlayed) && (
+            <div 
+              ref={trailContainerRef} 
+              className="absolute inset-0"
+              style={{ 
+                zIndex: 40,
+                clipPath: 'inset(0 0 60px 0)' // This clips the bottom 60px instead of using bottom margin
+              }}
+            >
+              <ImageTrail
+                containerRef={trailContainerRef}
+                newOnTop={true}
+                rotationRange={15}
+                interval={100}
+              >
+                {storyImages.map((image, index) => (
+                  <div
+                    key={image}
+                    className="w-[100px] h-[120px] rounded-lg overflow-hidden"
+                  >
+                    <Image
+                      src={`/images/story/${image}`}
+                      alt={`Story image ${index + 1}`}
+                      width={100}
+                      height={120}
+                      className="object-cover w-full h-full"
+                      priority
+                      unoptimized
+                    />
+                  </div>
+                ))}
+              </ImageTrail>
+            </div>
+          )}
         </div>
       </Card>
     </div>
