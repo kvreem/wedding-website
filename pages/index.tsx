@@ -114,7 +114,7 @@ export default function HomePage() {
   const tempFahrenheit = temperature ? Math.round((temperature * 9/5) + 32) : null;
   const degreeSymbol = '°'; // Using Unicode degree symbol
 
-  const handleAlbumClick = (imageName: string) => {
+  const resetAllSections = () => {
     setShowRSVP(false);
     setShowStory(false);
     setShowPlaylist(false);
@@ -123,187 +123,186 @@ export default function HomePage() {
     setShowTravel(false);
     setShowFAQ(false);
     setShowConcierge(false);
+    setSelectedImage(null);
+  };
+
+  const handleAlbumClick = (imageName: string) => {
+    resetAllSections();
     setSelectedImage(imageName);
   };
 
   const handleRSVPClick = () => {
+    resetAllSections();
     setShowRSVP(true);
-    setShowPlaylist(false);
-    setShowConcierge(false);
-    setSelectedImage(null);
   };
 
   const handleStoryClick = () => {
+    resetAllSections();
     setShowStory(true);
-    setShowRSVP(false);
-    setShowPlaylist(false);
-    setShowConcierge(false);
-    setSelectedImage(null);
   };
 
   const handleMenuClick = (section?: string) => {
-    setShowRSVP(false);
-    setShowStory(false);
-    setShowPlaylist(false);
+    resetAllSections();
     setShowVenue(section === 'venue');
     setShowStays(section === 'stays');
     setShowTravel(section === 'travel');
     setShowFAQ(section === 'faq');
     setShowConcierge(section === 'concierge');
-    setSelectedImage(null);
   };
 
   const handlePlaylistClick = () => {
-    setShowRSVP(false);
-    setShowStory(false);
-    setShowVenue(false);
-    setShowStays(false);
-    setShowTravel(false);
-    setShowFAQ(false);
-    setShowConcierge(false);
-    setSelectedImage(null);
+    resetAllSections();
     setShowPlaylist(true);
     setPlaylistLoading(true);
   };
 
   return (
     <div className={styles.container}>
-     
       {!loading && temperature && (
         <>
-          <div className={styles.topBar}>
-            <div className={styles.names}>
-              <span>Heidi + Kareem</span>
-              <span className={styles.date}> La Maison Bleue El Gouna, Hurghada, Egypt September 26th, 2025</span>
-            </div>
-            <div className={styles.weather}>
-              <span className={styles.weatherIcon}>&#9788;</span>
-              <span className="hidden md:inline">Temperature in Gouna: </span>
-              <span className="md:hidden">Gouna: </span>
-              <span>{isCelsius ? `${temperature}${degreeSymbol}C` : `${tempFahrenheit}${degreeSymbol}F`}</span>
-              <ActionButton onClick={() => setIsCelsius(!isCelsius)}>
-                {isCelsius ? `${degreeSymbol}F` : `${degreeSymbol}C`}
-              </ActionButton>
+          <div className="fixed top-0 left-0 right-0 bg-white z-50">
+            <div className={styles.topBar}>
+              <div className={styles.names}>
+                <span>Heidi + Kareem</span>
+              </div>
+              <div className={styles.weather}>
+                <span className={styles.weatherIcon}>&#9788;</span>
+                <span className="hidden md:inline">Temperature in Gouna: </span>
+                <span className="md:hidden">Gouna: </span>
+                <span>{isCelsius ? `${temperature}${degreeSymbol}C` : `${tempFahrenheit}${degreeSymbol}F`}</span>
+                <ActionButton onClick={() => setIsCelsius(!isCelsius)}>
+                  {isCelsius ? `${degreeSymbol}F` : `${degreeSymbol}C`}
+                </ActionButton>
+              </div>
             </div>
           </div>
 
-          {/* Always visible menu */}
-          <div className={styles.menu}>
-            <Card>
-              <TreeView title="Menu" defaultValue={true} isRoot>
+          {/* Add padding to account for fixed top bar */}
+          <div className="pt-16">
+            {/* Always visible menu */}
+            <div className={styles.menu}>
+              <Card>
                 <TreeView 
-                  title="RSVP" 
-                  isFile 
-                  onClick={handleRSVPClick}
-                />
-                <TreeView 
-                  title="Story" 
-                  isFile 
-                  onClick={handleStoryClick}
-                />
-                <TreeView title="Album">
-                  <TreeView 
-                    title="a.JPG" 
-                    isFile 
-                    onClick={() => handleAlbumClick('a.JPG')}
-                  />
-                  <TreeView 
-                    title="b.JPG" 
-                    isFile 
-                    onClick={() => handleAlbumClick('b.JPG')}
-                  />
-                  <TreeView 
-                    title="c.JPG" 
-                    isFile 
-                    onClick={() => handleAlbumClick('c.JPG')}
-                  />
-                  <TreeView 
-                    title="d.JPG" 
-                    isFile 
-                    onClick={() => handleAlbumClick('d.JPG')}
-                  />
-                  <TreeView 
-                    title="e.JPG" 
-                    isFile 
-                    onClick={() => handleAlbumClick('e.JPG')}
-                  />
-                  <TreeView 
-                    title="f.JPG" 
-                    isFile 
-                    onClick={() => handleAlbumClick('f.JPG')}
-                  />
-                  <TreeView 
-                    title="g.JPG" 
-                    isFile 
-                    onClick={() => handleAlbumClick('g.JPG')}
-                  />
-                  <TreeView 
-                    title="h.JPG" 
-                    isFile 
-                    onClick={() => handleAlbumClick('h.JPG')}
-                  />
-                  <TreeView 
-                    title="i.JPG" 
-                    isFile 
-                    onClick={() => handleAlbumClick('i.JPG')}
-                  />
-                  <TreeView 
-                    title="j.JPG" 
-                    isFile 
-                    onClick={() => handleAlbumClick('j.JPG')}
-                  />
-                  <TreeView 
-                    title="k.JPG" 
-                    isFile 
-                    onClick={() => handleAlbumClick('k.JPG')}
-                  />
-                  <TreeView 
-                    title="l.JPG" 
-                    isFile 
-                    onClick={() => handleAlbumClick('l.JPG')}
-                  />
-                  <TreeView 
-                    title="m.JPG" 
-                    isFile 
-                    onClick={() => handleAlbumClick('m.JPG')}
-                  />
-                </TreeView>
-                <TreeView 
-                  title="Details"
+                  title="Menu" 
+                  defaultValue={true} 
+                  isRoot 
+                  expandedTitle="Collapse Menu"
+                  collapsedTitle="Expand Menu"
                 >
                   <TreeView 
-                    title="Travel" 
+                    title="RSVP" 
                     isFile 
-                    onClick={() => handleMenuClick('travel')}
+                    onClick={handleRSVPClick}
                   />
                   <TreeView 
-                    title="Programme" 
+                    title="Story" 
                     isFile 
-                    onClick={() => handleMenuClick('venue')}
+                    onClick={handleStoryClick}
+                  />
+                  <TreeView title="Album">
+                    <TreeView 
+                      title="a.JPG" 
+                      isFile 
+                      onClick={() => handleAlbumClick('a.JPG')}
+                    />
+                    <TreeView 
+                      title="b.JPG" 
+                      isFile 
+                      onClick={() => handleAlbumClick('b.JPG')}
+                    />
+                    <TreeView 
+                      title="c.JPG" 
+                      isFile 
+                      onClick={() => handleAlbumClick('c.JPG')}
+                    />
+                    <TreeView 
+                      title="d.JPG" 
+                      isFile 
+                      onClick={() => handleAlbumClick('d.JPG')}
+                    />
+                    <TreeView 
+                      title="e.JPG" 
+                      isFile 
+                      onClick={() => handleAlbumClick('e.JPG')}
+                    />
+                    <TreeView 
+                      title="f.JPG" 
+                      isFile 
+                      onClick={() => handleAlbumClick('f.JPG')}
+                    />
+                    <TreeView 
+                      title="g.JPG" 
+                      isFile 
+                      onClick={() => handleAlbumClick('g.JPG')}
+                    />
+                    <TreeView 
+                      title="h.JPG" 
+                      isFile 
+                      onClick={() => handleAlbumClick('h.JPG')}
+                    />
+                    <TreeView 
+                      title="i.JPG" 
+                      isFile 
+                      onClick={() => handleAlbumClick('i.JPG')}
+                    />
+                    <TreeView 
+                      title="j.JPG" 
+                      isFile 
+                      onClick={() => handleAlbumClick('j.JPG')}
+                    />
+                    <TreeView 
+                      title="k.JPG" 
+                      isFile 
+                      onClick={() => handleAlbumClick('k.JPG')}
+                    />
+                    <TreeView 
+                      title="l.JPG" 
+                      isFile 
+                      onClick={() => handleAlbumClick('l.JPG')}
+                    />
+                    <TreeView 
+                      title="m.JPG" 
+                      isFile 
+                      onClick={() => handleAlbumClick('m.JPG')}
+                    />
+                  </TreeView>
+                  <TreeView 
+                    title="Details"
+                  >
+                    <TreeView 
+                      title="Travel" 
+                      isFile 
+                      onClick={() => handleMenuClick('travel')}
+                    />
+                    <TreeView 
+                      title="Programme" 
+                      isFile 
+                      onClick={() => handleMenuClick('venue')}
+                    />
+                    <TreeView 
+                      title="Stays" 
+                      isFile 
+                      onClick={() => handleMenuClick('stays')}
+                    />
+                  </TreeView>
+                  <TreeView 
+                    title="FAQ" 
+                    isFile 
+                    onClick={() => handleMenuClick('faq')}
                   />
                   <TreeView 
-                    title="Stays" 
+                    title="Concierge" 
                     isFile 
-                    onClick={() => handleMenuClick('stays')}
+                    onClick={() => handleMenuClick('concierge')}
+                  />
+                  <TreeView 
+                    title="Playlist" 
+                    isFile 
+                    onClick={handlePlaylistClick}
                   />
                 </TreeView>
-                <TreeView 
-                  title="FAQ" 
-                  isFile 
-                  onClick={() => handleMenuClick('faq')}
-                />
-                <TreeView 
-                  title="Concierge" 
-                  isFile 
-                  onClick={() => handleMenuClick('concierge')}
-                />
-                <TreeView 
-                  title="Playlist" 
-                  isFile 
-                  onClick={handlePlaylistClick}
-                />
-              </TreeView>
-            </Card>
+              </Card>
+            </div>
           </div>
 
           <div className="fixed bottom-5 left-5">
@@ -312,31 +311,28 @@ export default function HomePage() {
 
           <div className={styles.content}>
             {showRSVP ? (
-              <RSVPForm onClose={() => setShowRSVP(false)} />
+              <RSVPForm onClose={resetAllSections} />
             ) : showStory ? (
               <Story 
-                onClose={() => setShowStory(false)}
+                onClose={resetAllSections}
                 hasPlayed={storyHasPlayed}
                 onAutoPlayComplete={() => setStoryHasPlayed(true)}
               />
             ) : showVenue ? (
-              <VenueSection onClose={() => setShowVenue(false)} />
+              <VenueSection onClose={resetAllSections} />
             ) : showStays ? (
-              <StaysSection onClose={() => setShowStays(false)} />
+              <StaysSection onClose={resetAllSections} />
             ) : showTravel ? (
-              <TravelSection onClose={() => setShowTravel(false)} />
+              <TravelSection onClose={resetAllSections} />
             ) : showFAQ ? (
-              <FAQSection onClose={() => setShowFAQ(false)} />
+              <FAQSection onClose={resetAllSections} />
             ) : showConcierge ? (
-              <ConciergeSection onClose={() => setShowConcierge(false)} />
+              <ConciergeSection onClose={resetAllSections} />
             ) : showPlaylist ? (
               <div className="relative">
                 <div className="absolute top-0 right-0 -mt-4 -mr-4 z-50">
                   <ActionButton 
-                    onClick={() => {
-                      setShowPlaylist(false);
-                      setPlaylistLoading(true);
-                    }}
+                    onClick={resetAllSections}
                   >
                     X
                   </ActionButton>
@@ -394,10 +390,7 @@ export default function HomePage() {
                   />
                   <div className="absolute top-0 right-0 -mt-4 -mr-4">
                     <ActionButton 
-                      onClick={() => {
-                        console.log('Clearing selected image');
-                        setSelectedImage(null);
-                      }}
+                      onClick={resetAllSections}
                     >
                       X
                     </ActionButton>

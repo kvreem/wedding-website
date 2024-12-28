@@ -11,59 +11,61 @@ interface VenueSectionProps {
 const VenueSection: React.FC<VenueSectionProps> = ({ onClose }) => {
   return (
     <div className={styles.root}>
-      <div className="relative">
+      <div className="relative h-[calc(100vh-6rem)] flex flex-col">
         <div className="absolute top-0 right-0 -mt-4 -mr-4 z-50">
           <ActionButton onClick={onClose}>
             X
           </ActionButton>
         </div>
-        <Card title="La Maison Bleue">
+        <Card title="Details">
           <div className={styles.imageContainer}>
             <Image
               src="/images/lmb.jpg"
               alt="La Maison Bleue - Venue"
-              width={800}
-              height={500}
-              className={styles.image}
+              width={400}
+              height={200}
+              className="w-full h-[22vh] object-cover"
             />
           </div>
           <Divider />
-          <p className={styles.description}>
+          <p className="text-xs md:text-sm lg:text-base">
             La Maison Bleue is an exquisite boutique hotel perched along the Red Sea in El Gouna. Its grand design seamlessly blends European and North African influences, creating a tranquil, luxurious retreat. Panoramic sea views, opulent interiors, and lush courtyards make it a breathtaking backdrop for an unforgettable celebration.
           </p>
           <Divider />
-          <div className={styles.eventsContainer}>
-            <div className={styles.eventCard}>
-              <Card title="Welcome Party">
-                <div className={styles.eventTime}>
+          <div className="grid grid-cols-2 gap-4 h-[35vh]">
+            <div className="h-full">
+              <Card title={<span className="text-xs md:text-sm lg:text-base whitespace-nowrap">Welcome Party</span>}>
+                <div className="text-xs md:text-sm mb-2">
                   Thursday, 9/25/2025
                   <br />
-                  <span className={styles.attire}>Desert Oasis</span>
+                  <span className="text-xs">Desert Oasis</span>
                 </div>
-                <div className={styles.eventImage}>
+                <div className="relative h-[20vh]">
                   <Image
                     src="/images/welcomeparty.jpg"
                     alt="Welcome Party Setup"
                     fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    sizes="(max-width: 768px) 100vw, 30vw"
                     style={{ objectPosition: 'center 40%' }}
+                    className="object-cover"
                   />
                 </div>
               </Card>
             </div>
-            <div className={styles.eventCard}>
-              <Card title="Wedding Day">
-                <div className={styles.eventTime}>
+            <div className="h-full">
+              <Card title={<span className="text-xs md:text-sm lg:text-base whitespace-nowrap">Wedding Day</span>}>
+                <div className="text-xs md:text-sm mb-2">
                   Friday, 9/26/2025
                   <br />
-                  <span className={styles.attire}>Attire: Black tie, formal</span>
+                  <span className="text-xs">Attire: Black tie, formal</span>
                 </div>
-                <div className={styles.eventImage}>
+                <div className="relative h-[20vh]">
                   <Image
                     src="/images/lmb-2.jpg"
                     alt="La Maison Bleue Wedding Setup"
                     fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    sizes="(max-width: 768px) 100vw, 30vw"
+                    className="object-cover"
                   />
                 </div>
               </Card>

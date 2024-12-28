@@ -1,14 +1,28 @@
 .root {
   white-space: nowrap;
+  user-select: none;
+}
+
+.rootButton {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+
+  &.collapsed {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .item {
   cursor: pointer;
-
+  
   &:focus {
-    outline: 0;
-    border: 0;
-    background: var(--theme-focused-foreground);
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.1);
   }
 }
 

@@ -25,7 +25,7 @@ const StaysSection: React.FC<StaysSectionProps> = ({ onClose }) => {
               <Card title="Casa Cook">
                 <div className={styles.imageContainer}>
                   <Image
-                    src="/images/casacook1.jpg"
+                    src="/images/casacook.jpg"
                     alt="Casa Cook Hotel Room"
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
