@@ -12,6 +12,10 @@ import TreeView from '../components/TreeView';
 import Card from '../components/Card';
 import RSVPForm from '../components/RSVPForm';
 import Story from '../components/Story';
+import BarProgress from '../components/BarProgress';
+import VenueSection from '../components/VenueSection';
+import StaysSection from '../components/StaysSection';
+import TravelSection from '../components/TravelSection';
 
 interface WeatherData {
   hourly: {
@@ -28,7 +32,13 @@ export default function HomePage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [showRSVP, setShowRSVP] = useState(false);
   const [showStory, setShowStory] = useState(false);
+  const [showPlaylist, setShowPlaylist] = useState(false);
+  const [showVenue, setShowVenue] = useState(false);
+  const [showStays, setShowStays] = useState(false);
+  const [showTravel, setShowTravel] = useState(false);
+  const [playlistLoading, setPlaylistLoading] = useState(true);
   const [storyHasPlayed, setStoryHasPlayed] = useState(false);
+  const [playlistProgress, setPlaylistProgress] = useState(0);
 
   useEffect(() => {
     // Show grid on mount
@@ -75,35 +85,78 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    if (playlistLoading) {
+      const duration = 3000; // 3 seconds
+      const interval = 50; // Update every 50ms
+      const steps = duration / interval;
+      let currentStep = 0;
+
+      const timer = setInterval(() => {
+        currentStep++;
+        setPlaylistProgress(Math.min((currentStep / steps) * 100, 100));
+        
+        if (currentStep >= steps) {
+          clearInterval(timer);
+          setPlaylistLoading(false);
+          setPlaylistProgress(0);
+        }
+      }, interval);
+
+      return () => clearInterval(timer);
+    }
+  }, [playlistLoading]);
+
   const tempFahrenheit = temperature ? Math.round((temperature * 9/5) + 32) : null;
   const degreeSymbol = '°'; // Using Unicode degree symbol
 
   const handleAlbumClick = (imageName: string) => {
     setShowRSVP(false);
     setShowStory(false);
+    setShowPlaylist(false);
+    setShowVenue(false);
+    setShowStays(false);
+    setShowTravel(false);
     setSelectedImage(imageName);
   };
 
   const handleRSVPClick = () => {
     setShowRSVP(true);
+    setShowPlaylist(false);
     setSelectedImage(null);
   };
 
   const handleStoryClick = () => {
     setShowStory(true);
     setShowRSVP(false);
+    setShowPlaylist(false);
     setSelectedImage(null);
   };
 
-  const handleMenuClick = () => {
+  const handleMenuClick = (section?: string) => {
     setShowRSVP(false);
     setShowStory(false);
+    setShowPlaylist(false);
+    setShowVenue(section === 'venue');
+    setShowStays(section === 'stays');
+    setShowTravel(section === 'travel');
     setSelectedImage(null);
+  };
+
+  const handlePlaylistClick = () => {
+    setShowRSVP(false);
+    setShowStory(false);
+    setShowVenue(false);
+    setShowStays(false);
+    setShowTravel(false);
+    setSelectedImage(null);
+    setShowPlaylist(true);
+    setPlaylistLoading(true);
   };
 
   return (
     <div className={styles.container}>
-      <DebugGrid />
+     
       {!loading && temperature && (
         <>
           <div className={styles.topBar}>
@@ -204,10 +257,24 @@ export default function HomePage() {
                   />
                 </TreeView>
                 <TreeView 
-                  title="Details" 
-                  isFile 
-                  onClick={handleMenuClick}
-                />
+                  title="Details"
+                >
+                  <TreeView 
+                    title="Travel" 
+                    isFile 
+                    onClick={() => handleMenuClick('travel')}
+                  />
+                  <TreeView 
+                    title="Venue" 
+                    isFile 
+                    onClick={() => handleMenuClick('venue')}
+                  />
+                  <TreeView 
+                    title="Stays" 
+                    isFile 
+                    onClick={() => handleMenuClick('stays')}
+                  />
+                </TreeView>
                 <TreeView 
                   title="FAQ" 
                   isFile 
@@ -217,6 +284,11 @@ export default function HomePage() {
                   title="Concierge" 
                   isFile 
                   onClick={handleMenuClick}
+                />
+                <TreeView 
+                  title="Playlist" 
+                  isFile 
+                  onClick={handlePlaylistClick}
                 />
               </TreeView>
             </Card>
@@ -235,6 +307,61 @@ export default function HomePage() {
                 hasPlayed={storyHasPlayed}
                 onAutoPlayComplete={() => setStoryHasPlayed(true)}
               />
+            ) : showVenue ? (
+              <VenueSection onClose={() => setShowVenue(false)} />
+            ) : showStays ? (
+              <StaysSection onClose={() => setShowStays(false)} />
+            ) : showTravel ? (
+              <TravelSection onClose={() => setShowTravel(false)} />
+            ) : showPlaylist ? (
+              <div className="relative">
+                <div className="absolute top-0 right-0 -mt-4 -mr-4 z-50">
+                  <ActionButton 
+                    onClick={() => {
+                      setShowPlaylist(false);
+                      setPlaylistLoading(true);
+                    }}
+                  >
+                    X
+                  </ActionButton>
+                </div>
+                <Card title="Playlist">
+                  <div className="relative w-full max-w-3xl mx-auto p-4">
+                    <div className="relative w-full">
+                      {playlistLoading && (
+                        <div className="absolute inset-0 flex justify-center items-center bg-white">
+                          <div className="w-[352px]">
+                            <div className={styles.playlistLoader}>
+                              <div className={styles.progressText}>
+                                Loading tunes...
+                              </div>
+                              <div className={styles.bar}>
+                                <div className={styles.barContent}>
+                                  {'█'.repeat(Math.floor(playlistProgress / 2)) + '░'.repeat(50 - Math.floor(playlistProgress / 2))}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      <iframe 
+                        className={`w-full transition-opacity duration-300 ${playlistLoading ? 'opacity-0' : 'opacity-100'}`}
+                        style={{
+                          borderRadius: "12px",
+                        }} 
+                        src="https://open.spotify.com/embed/playlist/1CoRxdb5G1QYu07Ztn4iOu?utm_source=generator" 
+                        width="100%" 
+                        height="352" 
+                        frameBorder="0" 
+                        allowFullScreen 
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                        loading="lazy"
+                        onLoad={() => {}}
+                      />
+                    </div>
+                  </div>
+                </Card>
+              </div>
             ) : selectedImage ? (
               <div className={styles.selectedImage}>
                 <div className={styles.imageContainer}>

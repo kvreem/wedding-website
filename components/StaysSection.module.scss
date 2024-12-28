@@ -1,0 +1,49 @@
+.root {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.staysContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hotelCard {
+  min-width: 0; // Prevents flex items from overflowing
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 66.67%; // 3:2 aspect ratio
+  overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.badgeContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.75rem;
+  
+  span {
+    font-size: 0.9rem;
+  }
+} 

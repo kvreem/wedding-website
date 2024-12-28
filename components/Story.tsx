@@ -45,7 +45,7 @@ const Story: React.FC<StoryProps> = ({ onClose, hasPlayed, onAutoPlayComplete })
           <div className="flex justify-between items-center pt-4">
             {showFastForward && (
               <ActionButton onClick={handleFastForward}>
-                Fast Forward
+                >>
               </ActionButton>
             )}
             <div className={showFastForward ? '' : 'ml-auto'}>

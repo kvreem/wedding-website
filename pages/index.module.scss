@@ -73,20 +73,20 @@
   min-width: 300px;
 
   div {
-    border-color: white !important;
-    color: white !important;
+    border-color: var(--theme-foreground) !important;
+    color: var(--theme-foreground) !important;
   }
 
   span, p {
-    color: white !important;
+    color: var(--theme-foreground) !important;
   }
 
   :global(.bar) {
-    color: white !important;
+    color: var(--theme-foreground) !important;
   }
 
   :global(.progressText) {
-    color: white !important;
+    color: var(--theme-foreground) !important;
   }
 }
 
@@ -148,5 +148,55 @@
     img {
       max-height: calc(100vh - 280px);
     }
+  }
+}
+
+.barLoader {
+  text-align: center;
+  
+  .progressText {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: black;
+  }
+  
+  .bar {
+    width: 100%;
+    padding: 0 1rem;
+  }
+}
+
+.playlistLoader {
+  text-align: center;
+  
+  .progressText {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: var(--theme-foreground);
+  }
+  
+  .bar {
+    width: 100%;
+    padding: 0 1rem;
+    overflow: hidden;
+
+    .barContent {
+      font-family: monospace;
+      animation: loadingAnimation 2s infinite;
+      white-space: nowrap;
+      color: var(--theme-foreground);
+    }
+  }
+}
+
+@keyframes loadingAnimation {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
   }
 } 

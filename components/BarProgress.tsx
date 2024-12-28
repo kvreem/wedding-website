@@ -68,8 +68,8 @@ const BarProgress: React.FC<BarProgressProps> = ({ intervalRate, progress, fillC
   const barStr = fillChar.repeat(filledChars);
 
   return (
-    <div className={styles.root} ref={containerRef} aria-valuenow={cappedProgress} aria-valuemin={0} aria-valuemax={100} role="progressbar">
-      <span ref={measureRef} className={styles.measure}>
+    <div className={styles.root} ref={containerRef} aria-valuenow={cappedProgress} aria-valuemin={0} aria-valuemax={100} role="progressbar" style={{ color: 'black' }}>
+      <span ref={measureRef} className={styles.measure} style={{ color: 'black' }}>
         {fillChar}
       </span>
       {barStr}
