@@ -1,0 +1,87 @@
+.root {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.mainImageContainer {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 40%; // wider aspect ratio for main image
+  overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 66.67%; // 3:2 aspect ratio
+  overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.description {
+  padding: 1rem;
+  line-height: 1.6;
+  color: var(--theme-text);
+  text-align: justify;
+}
+
+.eventsSection {
+  padding: 0 1rem;
+}
+
+.dateHeader {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--theme-text);
+  margin: 1.5rem 0 1rem;
+  text-align: center;
+  
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.eventsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.eventCard {
+  min-width: 0; // Prevents flex items from overflowing
+}
+
+.eventTime {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--theme-text);
+}
+
+.attire {
+  display: block;
+  margin-top: 0.5rem;
+  font-style: italic;
+  color: var(--theme-text);
+  font-size: 0.9rem;
+} 

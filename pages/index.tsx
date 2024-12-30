@@ -13,7 +13,7 @@ import Card from '../components/Card';
 import RSVPForm from '../components/RSVPForm';
 import Story from '../components/Story';
 import BarProgress from '../components/BarProgress';
-import VenueSection from '../components/VenueSection';
+import VenueSection from '../custom-components/VenueSection';
 import StaysSection from '../components/StaysSection';
 import TravelSection from '../components/TravelSection';
 import FAQSection from '../components/FAQSection';

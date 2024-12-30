@@ -202,8 +202,8 @@ body.theme-light {
 
   --theme-button-foreground: var(--color-gray-30);
   --theme-button-background: var(--color-gray-20);
-  --theme-focused-foreground: var(--color-neon-green-50);
-  --theme-focused-foreground-subdued: var(--color-neon-green-50-5);
+  --theme-focused-foreground: rgba(255, 151, 143, 0.8);
+  --theme-focused-foreground-subdued: rgba(255, 151, 143, 0.4);
 }
 
 body.theme-dark {
