@@ -7,13 +7,17 @@ import RadioButton from '@components/RadioButton';
 interface RadioButtonGroupProps {
   options: { value: string; label: string }[];
   defaultValue?: string;
+  onValueChange?: (value: string) => void;
 }
 
-const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({ options, defaultValue = '' }) => {
+const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({ options, defaultValue = '', onValueChange }) => {
   const [selectedValue, setSelectedValue] = React.useState<string>(defaultValue);
 
   const handleSelect = (value: string) => {
     setSelectedValue(value);
+    if (onValueChange) {
+      onValueChange(value);
+    }
   };
 
   return (

@@ -1,8 +1,23 @@
 .root {
+  position: fixed;
+  inset: 0;
+  top: 4rem; // nav height
+  display: flex;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+.contentWrapper {
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
-  padding: 2rem;
+  padding-top: 1rem; // Space for X button
+  min-height: min-content;
+  
+  @media (min-height: 800px) {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
 }
 
 .formContainer {
