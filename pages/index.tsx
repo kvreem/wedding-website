@@ -163,7 +163,7 @@ export default function HomePage() {
             {/* Left drawer */}
             <div className="fixed left-0 top-16 h-[calc(100vh-4rem)] z-50">
               <Drawer defaultValue={false}>
-                <div className="w-[300px] bg-white">
+                <div className="w-[300px]" style={{ background: 'var(--theme-background)' }}>
                   <Card title="FILESYSTEM.EXE">
                     <TreeView 
                       title="FILES" 
@@ -384,53 +384,53 @@ export default function HomePage() {
                   </div>
                 ) : (
                   <CirclingElements radius={150} duration={20}>
-                    <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
+                    <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
                       <Image 
                         src={Image1}
                         alt="Wedding Image 1" 
                         className="rounded-lg object-cover"
                         fill
-                        sizes="(max-width: 150px) 15vw, 150px"
+                        sizes="(max-width: 195px) 19.5vw, 195px"
                         priority
                       />
                     </div>
-                    <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
+                    <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
                       <Image 
                         src={Image2}
                         alt="Wedding Image 2" 
                         className="rounded-lg object-cover"
                         fill
-                        sizes="(max-width: 150px) 15vw, 150px"
+                        sizes="(max-width: 195px) 19.5vw, 195px"
                         priority
                       />
                     </div>
-                    <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
+                    <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
                       <Image 
                         src={Image3}
                         alt="Wedding Image 3" 
                         className="rounded-lg object-cover"
                         fill
-                        sizes="(max-width: 150px) 15vw, 150px"
+                        sizes="(max-width: 195px) 19.5vw, 195px"
                         priority
                       />
                     </div>
-                    <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
+                    <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
                       <Image 
                         src={Image4}
                         alt="Wedding Image 4" 
                         className="rounded-lg object-cover"
                         fill
-                        sizes="(max-width: 150px) 15vw, 150px"
+                        sizes="(max-width: 195px) 19.5vw, 195px"
                         priority
                       />
                     </div>
-                    <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
+                    <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
                       <Image 
                         src={Image5}
                         alt="Wedding Image 5" 
                         className="rounded-lg object-cover"
                         fill
-                        sizes="(max-width: 150px) 15vw, 150px"
+                        sizes="(max-width: 195px) 19.5vw, 195px"
                         priority
                       />
                     </div>

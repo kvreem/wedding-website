@@ -229,6 +229,12 @@ body.theme-light {
   --theme-button-background: var(--color-gray-20);
   --theme-focused-foreground: rgba(255, 246, 217, 1);
   --theme-focused-foreground-subdued: rgba(255, 246, 217, 0.4);
+
+  background-image: url('/images/bg-img.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 body.theme-dark {
@@ -253,6 +259,8 @@ body.theme-dark {
   --theme-button-background: var(--color-gray-80);
   --theme-focused-foreground: var(--color-daybreak-10);
   --theme-focused-foreground-subdued: var(--color-daybreak-10-5);
+
+  background-image: none;
 }
 
 #__next {
