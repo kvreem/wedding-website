@@ -97,12 +97,13 @@ const VenueSection: React.FC<VenueSectionProps> = ({ onClose }) => {
                   <Card title="AFTER PARTY">
                     <div className={styles.imageContainer}>
                       <Image
-                        src="/images/afterparty.JPG"
+                        src="/images/afterparty.jpg"
                         alt="After Party"
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
                         className={styles.image}
                         priority
+                        unoptimized
                       />
                     </div>
                     <div className={styles.eventTime}>

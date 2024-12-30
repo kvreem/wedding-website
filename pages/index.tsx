@@ -21,6 +21,11 @@ import ConciergeSection from '../custom-components/ConciergeSection';
 import MainNavigation from '../custom-components/MainNavigation';
 import Drawer from '../components/Drawer';
 import CustomLoader from '../custom-components/CustomLoader';
+import Image1 from '../public/images/1.jpg';
+import Image2 from '../public/images/2.jpg';
+import Image3 from '../public/images/3.jpg';
+import Image4 from '../public/images/4.jpg';
+import Image5 from '../public/images/5.jpg';
 
 interface WeatherData {
   hourly: {
@@ -381,51 +386,51 @@ export default function HomePage() {
                   <CirclingElements radius={150} duration={20}>
                     <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
                       <Image 
-                        src="/images/1.jpg" 
+                        src={Image1}
                         alt="Wedding Image 1" 
-                        width={150} 
-                        height={150} 
-                        className="rounded-lg object-cover w-full h-full"
+                        className="rounded-lg object-cover"
+                        fill
+                        sizes="(max-width: 150px) 15vw, 150px"
                         priority
                       />
                     </div>
                     <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
                       <Image 
-                        src="/images/2.jpg" 
+                        src={Image2}
                         alt="Wedding Image 2" 
-                        width={150} 
-                        height={150} 
-                        className="rounded-lg object-cover w-full h-full"
+                        className="rounded-lg object-cover"
+                        fill
+                        sizes="(max-width: 150px) 15vw, 150px"
                         priority
                       />
                     </div>
                     <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
                       <Image 
-                        src="/images/3.jpg" 
+                        src={Image3}
                         alt="Wedding Image 3" 
-                        width={150} 
-                        height={150} 
-                        className="rounded-lg object-cover w-full h-full"
+                        className="rounded-lg object-cover"
+                        fill
+                        sizes="(max-width: 150px) 15vw, 150px"
                         priority
                       />
                     </div>
                     <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
                       <Image 
-                        src="/images/4.jpg" 
+                        src={Image4}
                         alt="Wedding Image 4" 
-                        width={150} 
-                        height={150} 
-                        className="rounded-lg object-cover w-full h-full"
+                        className="rounded-lg object-cover"
+                        fill
+                        sizes="(max-width: 150px) 15vw, 150px"
                         priority
                       />
                     </div>
                     <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
                       <Image 
-                        src="/images/5.jpg" 
+                        src={Image5}
                         alt="Wedding Image 5" 
-                        width={150} 
-                        height={150} 
-                        className="rounded-lg object-cover w-full h-full"
+                        className="rounded-lg object-cover"
+                        fill
+                        sizes="(max-width: 150px) 15vw, 150px"
                         priority
                       />
                     </div>

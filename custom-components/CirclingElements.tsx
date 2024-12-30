@@ -33,9 +33,9 @@ const CirclingElements: React.FC<CirclingElementsProps> = ({
               key={index}
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-circling pointer-events-auto"
               style={{
-                '--offset': offset,
+                '--offset': `${offset}`,
                 '--radius': responsiveRadius,
-                '--duration': duration,
+                '--duration': `${duration}s`,
               } as React.CSSProperties}
             >
               {child}

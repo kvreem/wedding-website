@@ -1,6 +1,7 @@
 @font-face {
   font-family: 'TX-02-Regular';
-  src: url('/fonts/TX-02-Regular.OTF') format('opentype');
+  src: url('/fonts/TX-02-Regular.otf') format('opentype');
+  font-display: swap;
 }
 
 @font-face {
@@ -8,6 +9,7 @@
   src: url('/fonts/TX-02-Bold.otf') format('opentype');
   font-weight: bold;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -15,6 +17,7 @@
   src: url('/fonts/TX-02-Oblique.otf') format('opentype');
   font-weight: normal;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
@@ -22,6 +25,7 @@
   src: url('/fonts/TX-02-Bold-Oblique.otf') format('opentype');
   font-weight: bold;
   font-style: italic;
+  font-display: swap;
 }
 
 a,
