@@ -1,0 +1,63 @@
+.navigationWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  border-bottom: 1px solid var(--theme-border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: var(--theme-background);
+}
+
+.menuTrigger {
+  display: inline-block;
+  position: relative;
+}
+
+.weatherModule {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+:global {
+  // Override some default styles for the old school OS look
+  .ActionButton-root {
+    font-family: "Monaco", "Courier New", monospace;
+    border: 1px solid var(--theme-border);
+    background: var(--theme-background);
+    padding: 4px 8px;
+    margin: 2px;
+    border-radius: 0;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    
+    &:hover {
+      background: var(--theme-focused-background);
+    }
+    
+    &:active {
+      background: var(--theme-focused-foreground);
+    }
+  }
+
+  .DropdownMenu-root {
+    border: 1px solid var(--theme-border);
+    background: var(--theme-background);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+    min-width: 200px;
+    padding: 4px 0;
+  }
+
+  // Navigation specific overrides
+  .Navigation-root {
+    height: 40px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+} 

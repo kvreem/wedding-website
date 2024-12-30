@@ -15,14 +15,20 @@
     align-items: center;
     justify-content: center;
   }
+
+  :global(.ActionButton-root) {
+    &:hover, &:focus, &[data-selected="true"] {
+      background: rgba(255, 246, 217, 1) !important;
+    }
+  }
 }
 
 .item {
   cursor: pointer;
   
-  &:focus {
+  &:hover, &:focus {
     outline: none;
-    background-color: rgba(0, 0, 0, 0.1);
+    background: rgba(255, 246, 217, 1) !important;
   }
 }
 

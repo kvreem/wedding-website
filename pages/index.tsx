@@ -18,6 +18,7 @@ import StaysSection from '../components/StaysSection';
 import TravelSection from '../components/TravelSection';
 import FAQSection from '../components/FAQSection';
 import ConciergeSection from '../components/ConciergeSection';
+import MainNavigation from '../custom-components/MainNavigation';
 
 interface WeatherData {
   hourly: {
@@ -160,23 +161,17 @@ export default function HomePage() {
     <div className={styles.container}>
       {!loading && temperature && (
         <>
-          <div className="fixed top-0 left-0 right-0 bg-white z-50">
-            <div className={styles.topBar}>
-              <div className={styles.names}>
-                <span>Heidi + Kareem</span>
-              </div>
-              <div className={styles.weather}>
-                <span className={styles.weatherIcon}>&#9788;</span>
-                <span className="hidden md:inline">Temperature in Gouna: </span>
-                <span className="md:hidden">Gouna: </span>
-                <span>{isCelsius ? `${temperature}${degreeSymbol}C` : `${tempFahrenheit}${degreeSymbol}F`}</span>
-                <ActionButton onClick={() => setIsCelsius(!isCelsius)}>
-                  {isCelsius ? `${degreeSymbol}F` : `${degreeSymbol}C`}
-                </ActionButton>
-              </div>
-            </div>
-          </div>
-
+          <MainNavigation 
+            temperature={temperature}
+            onStoryClick={handleStoryClick}
+            onAlbumClick={handleAlbumClick}
+            onDetailsClick={(section) => handleMenuClick(section)}
+            onMenuClick={handleMenuClick}
+            onRSVPClick={handleRSVPClick}
+            onConciergeClick={() => handleMenuClick('concierge')}
+            onFAQClick={() => handleMenuClick('faq')}
+            onPlaylistClick={handlePlaylistClick}
+          />
           {/* Add padding to account for fixed top bar */}
           <div className="pt-16">
             {/* Always visible menu */}

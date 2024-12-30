@@ -1,0 +1,28 @@
+.navigationWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.actionGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.weatherModule {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  font-family: "Monaco", "Courier New", monospace;
+
+  .weatherIcon {
+    font-size: 16px;
+    color: var(--theme-text);
+  }
+} 

@@ -1,6 +1,27 @@
 @font-face {
-  font-family: 'Geist-Mono-Regular';
-  src: url('https://intdev-global.s3.us-west-2.amazonaws.com/public/internet-dev/996b00fb-4b7a-403d-8da2-ce2225450681.woff2') format('woff2');
+  font-family: 'TX-02-Regular';
+  src: url('/fonts/TX-02-Regular.OTF') format('opentype');
+}
+
+@font-face {
+  font-family: 'TX-02';
+  src: url('/fonts/TX-02-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TX-02';
+  src: url('/fonts/TX-02-Oblique.otf') format('opentype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'TX-02';
+  src: url('/fonts/TX-02-Bold-Oblique.otf') format('opentype');
+  font-weight: bold;
+  font-style: italic;
 }
 
 a,
@@ -188,7 +209,7 @@ body.theme-light {
   --theme-background-modal: var(--color-gray-20);
   --theme-background-modal-footer: var(--color-gray-40);
   --theme-background-input: var(--color-gray-10);
-  --theme-border: var(--color-gray-20);
+  --theme-border: rgba(255, 246, 217, 1);
   --theme-border-subdued: var(--color-gray-40-2);
   --theme-error: var(--color-red-60);
   --theme-error-subdued: var(--color-red-60-3);
@@ -202,8 +223,8 @@ body.theme-light {
 
   --theme-button-foreground: var(--color-gray-30);
   --theme-button-background: var(--color-gray-20);
-  --theme-focused-foreground: rgba(255, 151, 143, 0.8);
-  --theme-focused-foreground-subdued: rgba(255, 151, 143, 0.4);
+  --theme-focused-foreground: rgba(255, 246, 217, 1);
+  --theme-focused-foreground-subdued: rgba(255, 246, 217, 0.4);
 }
 
 body.theme-dark {
@@ -320,7 +341,7 @@ body {
   --color-white-4: rgba(255, 255, 255, 0.4);
 
   --font-family: -apple-system, BlinkMacSystemFont, helvetica neue, helvetica, sans-serif;
-  --font-family-mono: 'Geist-Mono-Regular', Consolas, monaco, monospace;
+  --font-family-mono: 'TX-02-Regular', Consolas, monaco, monospace;
   --font-family-serif: Georgia, Times New Roman, serif;
 
   --theme-text: var(--color-black-100);
@@ -356,5 +377,21 @@ body {
   }
   &::-webkit-scrollbar-thumb:hover {
     background: var(--theme-border);
+  }
+}
+
+.item {
+  &:hover, &:focus {
+    background: rgba(255, 246, 217, 1) !important;
+    outline: none;
+  }
+}
+
+.rootButton {
+  button {
+    &:hover, &:focus, &[data-selected="true"] {
+      background: rgba(255, 246, 217, 1) !important;
+      outline: none;
+    }
   }
 }

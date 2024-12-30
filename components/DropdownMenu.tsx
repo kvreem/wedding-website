@@ -23,11 +23,16 @@ interface DropdownMenuProps extends React.HTMLAttributes<HTMLDivElement> {
 const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>((props, ref) => {
   const { onClose, items, style, ...rest } = props;
 
-  const handleHotkey = () => {
-    if (onClose) onClose();
+  const handleHotkey = (e: KeyboardEvent) => {
+    e.preventDefault();
+    if (onClose) onClose(e);
   };
 
-  useHotkeys('space', handleHotkey);
+  useHotkeys('space', handleHotkey, {
+    enableOnFormTags: true,
+    preventDefault: true,
+    keydown: true
+  });
 
   return (
     <div ref={ref} className={styles.root} style={style} {...rest}>
