@@ -1,11 +1,12 @@
 'use client';
 
 import React, { useRef } from 'react';
-import Card from './Card';
-import TextArea from './TextArea';
-import ActionButton from './ActionButton';
+import Card from '@components/Card';
+import TextArea from '@components/TextArea';
+import ActionButton from '@components/ActionButton';
 import Image from 'next/image';
 import { ImageTrail } from "../fancy/components/image/image-trail";
+import styles from './Story.module.scss';
 
 interface StoryProps {
   onClose: () => void;
@@ -50,65 +51,63 @@ const Story: React.FC<StoryProps> = ({ onClose, hasPlayed, onAutoPlayComplete })
   ];
 
   return (
-    <div className="w-full max-w-[90vw] md:max-w-[600px] mx-auto px-4">
-      <Card title="Our Story">
-        <div className="space-y-8 py-4 relative">
-          <TextArea
-            autoPlay={!hasPlayed && !isFastForwarded ? storyText : undefined}
-            autoPlaySpeedMS={50}
-            readOnly
-            value={(hasPlayed || isFastForwarded) ? storyText : undefined}
-            onAutoPlayComplete={handleAutoPlayComplete}
-          />
-          <div className="flex justify-between items-center pt-4 relative z-50">
-            {showFastForward && (
-              <ActionButton onClick={handleFastForward}>
-                {'>>'}
-              </ActionButton>
-            )}
-            <div className={showFastForward ? '' : 'ml-auto'}>
-              <ActionButton onClick={onClose}>
-                X
-              </ActionButton>
-            </div>
+    <div className={styles.root}>
+      <div className={styles.contentWrapper}>
+        <div className="relative">
+          <div className="absolute top-0 right-0 -mt-4 -mr-4 z-50">
+            <ActionButton onClick={onClose}>X</ActionButton>
           </div>
+          <Card title="OUR STORY">
+            <div className={styles.storyContainer}>
+              <TextArea
+                autoPlay={!hasPlayed && !isFastForwarded ? storyText : undefined}
+                autoPlaySpeedMS={50}
+                readOnly
+                value={(hasPlayed || isFastForwarded) ? storyText : undefined}
+                onAutoPlayComplete={handleAutoPlayComplete}
+              />
+              {showFastForward && (
+                <div className={styles.controls}>
+                  <ActionButton onClick={handleFastForward}>
+                    {'>>'}
+                  </ActionButton>
+                </div>
+              )}
 
-          {(showTrail || hasPlayed) && (
-            <div 
-              ref={trailContainerRef} 
-              className="absolute inset-0"
-              style={{ 
-                zIndex: 40,
-                clipPath: 'inset(0 0 60px 0)' // This clips the bottom 60px instead of using bottom margin
-              }}
-            >
-              <ImageTrail
-                containerRef={trailContainerRef}
-                newOnTop={true}
-                rotationRange={15}
-                interval={100}
-              >
-                {storyImages.map((image, index) => (
-                  <div
-                    key={image}
-                    className="w-[100px] h-[120px] rounded-lg overflow-hidden"
+              {(showTrail || hasPlayed) && (
+                <div 
+                  ref={trailContainerRef} 
+                  className={styles.trailContainer}
+                >
+                  <ImageTrail
+                    containerRef={trailContainerRef}
+                    newOnTop={true}
+                    rotationRange={15}
+                    interval={100}
                   >
-                    <Image
-                      src={`/images/story/${image}`}
-                      alt={`Story image ${index + 1}`}
-                      width={100}
-                      height={120}
-                      className="object-cover w-full h-full"
-                      priority
-                      unoptimized
-                    />
-                  </div>
-                ))}
-              </ImageTrail>
+                    {storyImages.map((image, index) => (
+                      <div
+                        key={image}
+                        className={styles.imageContainer}
+                      >
+                        <Image
+                          src={`/images/story/${image}`}
+                          alt={`Story image ${index + 1}`}
+                          width={100}
+                          height={120}
+                          className="object-cover w-full h-full"
+                          priority
+                          unoptimized
+                        />
+                      </div>
+                    ))}
+                  </ImageTrail>
+                </div>
+              )}
             </div>
-          )}
+          </Card>
         </div>
-      </Card>
+      </div>
     </div>
   );
 };

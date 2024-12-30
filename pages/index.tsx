@@ -5,21 +5,22 @@ import BarLoader from '../components/BarLoader';
 import DebugGrid, { toggleDebugGrid } from '../components/DebugGrid';
 import ActionButton from '../components/ActionButton';
 import Badge from '../components/Badge';
-import CirclingElements from '../components/CirclingElements';
+import CirclingElements from '../custom-components/CirclingElements';
 import Image from 'next/image';
 import styles from './index.module.scss';
 import TreeView from '../components/TreeView';
 import Card from '../components/Card';
-import RSVPForm from '../components/RSVPForm';
-import Story from '../components/Story';
+import RSVPForm from '../custom-components/RSVPForm';
+import Story from '../custom-components/Story';
 import BarProgress from '../components/BarProgress';
 import VenueSection from '../custom-components/VenueSection';
-import StaysSection from '../components/StaysSection';
-import TravelSection from '../components/TravelSection';
-import FAQSection from '../components/FAQSection';
-import ConciergeSection from '../components/ConciergeSection';
+import StaysSection from '../custom-components/StaysSection';
+import TravelSection from '../custom-components/TravelSection';
+import FAQSection from '../custom-components/FAQSection';
+import ConciergeSection from '../custom-components/ConciergeSection';
 import MainNavigation from '../custom-components/MainNavigation';
 import Drawer from '../components/Drawer';
+import CustomLoader from '../custom-components/CustomLoader';
 
 interface WeatherData {
   hourly: {
@@ -30,7 +31,6 @@ interface WeatherData {
 
 export default function HomePage() {
   const [loading, setLoading] = useState(true);
-  const [progress, setProgress] = useState(0);
   const [isCelsius, setIsCelsius] = useState(true);
   const [temperature, setTemperature] = useState<number | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -47,9 +47,7 @@ export default function HomePage() {
   const [playlistProgress, setPlaylistProgress] = useState(0);
 
   useEffect(() => {
-    // Show grid on mount
-    toggleDebugGrid();
-    
+    // Remove debug grid toggle on mount
     const fetchWeather = async () => {
       try {
         const response: Response = await fetch(
@@ -70,25 +68,6 @@ export default function HomePage() {
     };
 
     fetchWeather();
-  }, []);
-
-  useEffect(() => {
-    const duration = 5000;
-    const interval = 40;
-    const steps = duration / interval;
-    let currentStep = 0;
-
-    const timer = setInterval(() => {
-      currentStep++;
-      setProgress(Math.min((currentStep / steps) * 100, 100));
-      
-      if (currentStep >= steps) {
-        clearInterval(timer);
-        setLoading(false);
-      }
-    }, interval);
-
-    return () => clearInterval(timer);
   }, []);
 
   useEffect(() => {
@@ -180,15 +159,15 @@ export default function HomePage() {
             <div className="fixed left-0 top-16 h-[calc(100vh-4rem)] z-50">
               <Drawer defaultValue={false}>
                 <div className="w-[300px] bg-white">
-                  <Card title="FileSystem.exe">
+                  <Card title="FILESYSTEM.EXE">
                     <TreeView 
-                      title="Files" 
+                      title="FILES" 
                       defaultValue={true} 
                       isRoot 
-                      expandedTitle="Collapse Files"
-                      collapsedTitle="Expand Files"
+                      expandedTitle="COLLAPSE FILES"
+                      collapsedTitle="EXPAND FILES"
                     >
-                      <TreeView title="Album">
+                      <TreeView title="ALBUM">
                         <TreeView 
                           title="a.JPG" 
                           isFile 
@@ -256,25 +235,25 @@ export default function HomePage() {
                         />
                       </TreeView>
                       <TreeView 
-                        title="Concierge" 
+                        title="CONCIERGE" 
                         isFile 
                         onClick={() => handleMenuClick('concierge')}
                       />
                       <TreeView 
-                        title="Details"
+                        title="DETAILS"
                       >
                         <TreeView 
-                          title="Programme" 
+                          title="PROGRAMME" 
                           isFile 
                           onClick={() => handleMenuClick('venue')}
                         />
                         <TreeView 
-                          title="Stays" 
+                          title="STAYS" 
                           isFile 
                           onClick={() => handleMenuClick('stays')}
                         />
                         <TreeView 
-                          title="Travel" 
+                          title="TRAVEL" 
                           isFile 
                           onClick={() => handleMenuClick('travel')}
                         />
@@ -285,7 +264,7 @@ export default function HomePage() {
                         onClick={() => handleMenuClick('faq')}
                       />
                       <TreeView 
-                        title="Playlist" 
+                        title="PLAYLIST" 
                         isFile 
                         onClick={handlePlaylistClick}
                       />
@@ -295,7 +274,7 @@ export default function HomePage() {
                         onClick={handleRSVPClick}
                       />
                       <TreeView 
-                        title="Story" 
+                        title="STORY" 
                         isFile 
                         onClick={handleStoryClick}
                       />
@@ -326,50 +305,50 @@ export default function HomePage() {
                 ) : showConcierge ? (
                   <ConciergeSection onClose={resetAllSections} />
                 ) : showPlaylist ? (
-                  <div className="relative">
-                    <div className="absolute top-0 right-0 -mt-4 -mr-4 z-50">
-                      <ActionButton 
-                        onClick={resetAllSections}
-                      >
-                        X
-                      </ActionButton>
-                    </div>
-                    <Card title="Playlist">
-                      <div className="relative w-full max-w-3xl mx-auto p-4">
-                        <div className="relative w-full">
-                          {playlistLoading && (
-                            <div className="absolute inset-0 flex justify-center items-center bg-white">
-                              <div className="w-[352px]">
-                                <div className={styles.playlistLoader}>
-                                  <div className={styles.progressText}>
-                                    Loading tunes...
-                                  </div>
-                                  <div className={styles.bar}>
-                                    <div className={styles.barContent}>
-                                      {'█'.repeat(Math.floor(playlistProgress / 2)) + '░'.repeat(50 - Math.floor(playlistProgress / 2))}
+                  <div className="fixed inset-0 flex items-center justify-center overflow-hidden">
+                    <div className="w-full max-w-[90vw] md:max-w-[600px] px-4">
+                      <div className="relative">
+                        <div className="absolute top-0 right-0 -mt-4 -mr-4 z-50">
+                          <ActionButton onClick={resetAllSections}>
+                            X
+                          </ActionButton>
+                        </div>
+                        <Card title="PLAYLIST">
+                          <div className="relative w-full">
+                            {playlistLoading && (
+                              <div className="absolute inset-0 flex justify-center items-center bg-white">
+                                <div className="w-[352px]">
+                                  <div className={styles.playlistLoader}>
+                                    <div className={styles.progressText}>
+                                      Loading tunes...
+                                    </div>
+                                    <div className={styles.bar}>
+                                      <div className={styles.barContent}>
+                                        {'█'.repeat(Math.floor(playlistProgress / 2)) + '░'.repeat(50 - Math.floor(playlistProgress / 2))}
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          )}
-                          <iframe 
-                            className={`w-full transition-opacity duration-300 ${playlistLoading ? 'opacity-0' : 'opacity-100'}`}
-                            style={{
-                              borderRadius: "12px",
-                            }} 
-                            src="https://open.spotify.com/embed/playlist/1CoRxdb5G1QYu07Ztn4iOu?utm_source=generator" 
-                            width="100%" 
-                            height="352" 
-                            frameBorder="0" 
-                            allowFullScreen 
-                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                            loading="lazy"
-                            onLoad={() => {}}
-                          />
-                        </div>
+                            )}
+                            <iframe 
+                              className={`w-full transition-opacity duration-300 ${playlistLoading ? 'opacity-0' : 'opacity-100'}`}
+                              style={{
+                                borderRadius: "12px",
+                              }} 
+                              src="https://open.spotify.com/embed/playlist/1CoRxdb5G1QYu07Ztn4iOu?utm_source=generator" 
+                              width="100%" 
+                              height="352" 
+                              frameBorder="0" 
+                              allowFullScreen 
+                              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                              loading="lazy"
+                              onLoad={() => {}}
+                            />
+                          </div>
+                        </Card>
                       </div>
-                    </Card>
+                    </div>
                   </div>
                 ) : selectedImage ? (
                   <div className={styles.selectedImage}>
@@ -381,7 +360,7 @@ export default function HomePage() {
                           X
                         </ActionButton>
                       </div>
-                      <Card title={selectedImage}>
+                      <Card title={selectedImage.toUpperCase()}>
                         <div className={styles.imageContainer}>
                           <Image
                             src={`/images/album/${selectedImage}`}
@@ -463,9 +442,7 @@ export default function HomePage() {
       )}
       {loading && (
         <div className={styles.preloader}>
-          <div className={styles.loaderWrapper}>
-            <BarLoader progress={progress} />
-          </div>
+          <CustomLoader onLoadingComplete={() => setLoading(false)} />
         </div>
       )}
     </div>

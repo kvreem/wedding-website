@@ -239,8 +239,8 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
   const right = (
     <div className={styles.weatherModule}>
       <span className={styles.weatherIcon}>&#9788;</span>
-      <span className="hidden md:inline">Temperature in Gouna: </span>
-      <span className="md:hidden">Gouna: </span>
+      <span className="hidden md:inline">Temperature in GOUNA: </span>
+      <span className="md:hidden">GOUNA: </span>
       <span>
         {temperature ? (
           `${isCelsius ? temperature : tempFahrenheit}${degreeSymbol}${isCelsius ? 'C' : 'F'}`
