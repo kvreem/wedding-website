@@ -2,7 +2,13 @@ import * as React from 'react';
 import Navigation from '../components/Navigation';
 import ActionButton from '../components/ActionButton';
 import DropdownMenu from '../components/DropdownMenu';
+import Avatar from '../components/Avatar';
+import { toggleDebugGrid } from '../components/DebugGrid';
+import { useModals } from '../components/page/ModalContext';
+import ModalAlert from '../components/modals/ModalAlert';
+import ModalTrigger from '@components/ModalTrigger';
 import styles from './MainNavigation.module.scss';
+import ModalError from '@root/components/modals/ModalError';
 
 interface MainNavigationProps {
   temperature?: number;
@@ -27,6 +33,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
   onFAQClick,
   onPlaylistClick
 }) => {
+  const { open } = useModals();
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [albumMenuOpen, setAlbumMenuOpen] = React.useState(false);
   const [detailsMenuOpen, setDetailsMenuOpen] = React.useState(false);
@@ -35,6 +42,17 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
   const [isCelsius, setIsCelsius] = React.useState(true);
   const albumButtonRef = React.useRef<HTMLDivElement>(null);
   const detailsButtonRef = React.useRef<HTMLDivElement>(null);
+  const [mainMenuOpen, setMainMenuOpen] = React.useState(false);
+  const [mainMenuPosition, setMainMenuPosition] = React.useState({ top: 0, left: 0 });
+  const mainButtonRef = React.useRef<HTMLDivElement>(null);
+  const [socialMenuOpen, setSocialMenuOpen] = React.useState(false);
+  const [themeMenuOpen, setThemeMenuOpen] = React.useState(false);
+  const [socialMenuPosition, setSocialMenuPosition] = React.useState({ top: 0, left: 0 });
+  const [themeMenuPosition, setThemeMenuPosition] = React.useState({ top: 0, left: 0 });
+  const socialButtonRef = React.useRef<HTMLDivElement>(null);
+  const themeButtonRef = React.useRef<HTMLDivElement>(null);
+  const [isDarkMode, setIsDarkMode] = React.useState(false);
+  const [isDebugMode, setIsDebugMode] = React.useState(false);
 
   const tempFahrenheit = temperature ? Math.round((temperature * 9/5) + 32) : null;
   const degreeSymbol = '°';
@@ -42,6 +60,9 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
   const handleCloseAllMenus = () => {
     setAlbumMenuOpen(false);
     setDetailsMenuOpen(false);
+    setMainMenuOpen(false);
+    setSocialMenuOpen(false);
+    setThemeMenuOpen(false);
   };
 
   const handleAlbumClick = (e: React.MouseEvent) => {
@@ -64,33 +85,109 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
     }
   };
 
+  const handleMainClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    handleCloseAllMenus();
+    if (mainButtonRef.current) {
+      const rect = mainButtonRef.current.getBoundingClientRect();
+      setMainMenuPosition({ top: rect.bottom, left: rect.left });
+      setMainMenuOpen(true);
+    }
+  };
+
+  const handleSocialClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setThemeMenuOpen(false);
+    if (socialButtonRef.current) {
+      const rect = socialButtonRef.current.getBoundingClientRect();
+      setSocialMenuPosition({ top: rect.top, left: rect.right + 8 });
+      setSocialMenuOpen(!socialMenuOpen);
+    }
+  };
+
+  const handleThemeClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setSocialMenuOpen(false);
+    if (themeButtonRef.current) {
+      const rect = themeButtonRef.current.getBoundingClientRect();
+      setThemeMenuPosition({ top: rect.top, left: rect.right + 8 });
+      setThemeMenuOpen(!themeMenuOpen);
+    }
+  };
+
+  const handleDarkModeToggle = () => {
+    const newDarkMode = !isDarkMode;
+    setIsDarkMode(newDarkMode);
+    document.body.classList.toggle('theme-dark');
+    handleCloseAllMenus();
+  };
+
+  const handleDebugModeToggle = () => {
+    const newDebugMode = !isDebugMode;
+    setIsDebugMode(newDebugMode);
+    toggleDebugGrid();
+    handleCloseAllMenus();
+  };
+
   const albumMenuItems = [
-    { children: 'a.JPG', onClick: () => { onAlbumClick?.('a.JPG'); handleCloseAllMenus(); } },
-    { children: 'b.JPG', onClick: () => { onAlbumClick?.('b.JPG'); handleCloseAllMenus(); } },
-    { children: 'c.JPG', onClick: () => { onAlbumClick?.('c.JPG'); handleCloseAllMenus(); } },
-    { children: 'd.JPG', onClick: () => { onAlbumClick?.('d.JPG'); handleCloseAllMenus(); } },
-    { children: 'e.JPG', onClick: () => { onAlbumClick?.('e.JPG'); handleCloseAllMenus(); } },
-    { children: 'f.JPG', onClick: () => { onAlbumClick?.('f.JPG'); handleCloseAllMenus(); } },
-    { children: 'g.JPG', onClick: () => { onAlbumClick?.('g.JPG'); handleCloseAllMenus(); } },
-    { children: 'h.JPG', onClick: () => { onAlbumClick?.('h.JPG'); handleCloseAllMenus(); } },
-    { children: 'i.JPG', onClick: () => { onAlbumClick?.('i.JPG'); handleCloseAllMenus(); } },
-    { children: 'j.JPG', onClick: () => { onAlbumClick?.('j.JPG'); handleCloseAllMenus(); } },
-    { children: 'k.JPG', onClick: () => { onAlbumClick?.('k.JPG'); handleCloseAllMenus(); } },
-    { children: 'l.JPG', onClick: () => { onAlbumClick?.('l.JPG'); handleCloseAllMenus(); } },
-    { children: 'm.JPG', onClick: () => { onAlbumClick?.('m.JPG'); handleCloseAllMenus(); } },
+    { children: <Avatar src="/images/album/a.JPG" style={{ width: '32px', height: '32px', backgroundSize: 'cover', borderRadius: '0', marginRight: '12px' }}>a.JPG</Avatar>, onClick: () => { onAlbumClick?.('a.JPG'); handleCloseAllMenus(); } },
+    { children: <Avatar src="/images/album/b.JPG" style={{ width: '32px', height: '32px', backgroundSize: 'cover', borderRadius: '0', marginRight: '12px' }}>b.JPG</Avatar>, onClick: () => { onAlbumClick?.('b.JPG'); handleCloseAllMenus(); } },
+    { children: <Avatar src="/images/album/c.JPG" style={{ width: '32px', height: '32px', backgroundSize: 'cover', borderRadius: '0', marginRight: '12px' }}>c.JPG</Avatar>, onClick: () => { onAlbumClick?.('c.JPG'); handleCloseAllMenus(); } },
+    { children: <Avatar src="/images/album/d.JPG" style={{ width: '32px', height: '32px', backgroundSize: 'cover', borderRadius: '0', marginRight: '12px' }}>d.JPG</Avatar>, onClick: () => { onAlbumClick?.('d.JPG'); handleCloseAllMenus(); } },
+    { children: <Avatar src="/images/album/e.JPG" style={{ width: '32px', height: '32px', backgroundSize: 'cover', borderRadius: '0', marginRight: '12px' }}>e.JPG</Avatar>, onClick: () => { onAlbumClick?.('e.JPG'); handleCloseAllMenus(); } },
+    { children: <Avatar src="/images/album/f.JPG" style={{ width: '32px', height: '32px', backgroundSize: 'cover', borderRadius: '0', marginRight: '12px' }}>f.JPG</Avatar>, onClick: () => { onAlbumClick?.('f.JPG'); handleCloseAllMenus(); } },
+    { children: <Avatar src="/images/album/g.JPG" style={{ width: '32px', height: '32px', backgroundSize: 'cover', borderRadius: '0', marginRight: '12px' }}>g.JPG</Avatar>, onClick: () => { onAlbumClick?.('g.JPG'); handleCloseAllMenus(); } },
+    { children: <Avatar src="/images/album/h.JPG" style={{ width: '32px', height: '32px', backgroundSize: 'cover', borderRadius: '0', marginRight: '12px' }}>h.JPG</Avatar>, onClick: () => { onAlbumClick?.('h.JPG'); handleCloseAllMenus(); } },
+    { children: <Avatar src="/images/album/i.JPG" style={{ width: '32px', height: '32px', backgroundSize: 'cover', borderRadius: '0', marginRight: '12px' }}>i.JPG</Avatar>, onClick: () => { onAlbumClick?.('i.JPG'); handleCloseAllMenus(); } },
+    { children: <Avatar src="/images/album/j.JPG" style={{ width: '32px', height: '32px', backgroundSize: 'cover', borderRadius: '0', marginRight: '12px' }}>j.JPG</Avatar>, onClick: () => { onAlbumClick?.('j.JPG'); handleCloseAllMenus(); } },
+    { children: <Avatar src="/images/album/k.JPG" style={{ width: '32px', height: '32px', backgroundSize: 'cover', borderRadius: '0', marginRight: '12px' }}>k.JPG</Avatar>, onClick: () => { onAlbumClick?.('k.JPG'); handleCloseAllMenus(); } },
+    { children: <Avatar src="/images/album/l.JPG" style={{ width: '32px', height: '32px', backgroundSize: 'cover', borderRadius: '0', marginRight: '12px' }}>l.JPG</Avatar>, onClick: () => { onAlbumClick?.('l.JPG'); handleCloseAllMenus(); } },
+    { children: <Avatar src="/images/album/m.JPG" style={{ width: '32px', height: '32px', backgroundSize: 'cover', borderRadius: '0', marginRight: '12px' }}>m.JPG</Avatar>, onClick: () => { onAlbumClick?.('m.JPG'); handleCloseAllMenus(); } },
   ];
 
   const detailsMenuItems = [
-    { children: 'Programme', onClick: () => { onDetailsClick?.('programme'); handleCloseAllMenus(); } },
-    { children: 'Stays', onClick: () => { onDetailsClick?.('stays'); handleCloseAllMenus(); } },
-    { children: 'Travel', onClick: () => { onDetailsClick?.('travel'); handleCloseAllMenus(); } },
+    { children: 'Programme', onClick: () => { onMenuClick?.('venue'); handleCloseAllMenus(); } },
+    { children: 'Stays', onClick: () => { onMenuClick?.('stays'); handleCloseAllMenus(); } },
+    { children: 'Travel', onClick: () => { onMenuClick?.('travel'); handleCloseAllMenus(); } },
+  ];
+
+  const socialMenuItems = [
+    { 
+      children: 'Instagram',
+      href: 'https://instagram.com/heidiandkareem',
+      target: '_blank'
+    },
+  ];
+
+  const themeMenuItems = [
+    { children: isDebugMode ? 'Exit Debug Mode' : 'Debug Mode', onClick: handleDebugModeToggle },
+    { children: isDarkMode ? 'Light Mode' : 'Dark Mode', onClick: handleDarkModeToggle },
+  ];
+
+  const mainMenuItems = [
+    { 
+      children: <div ref={socialButtonRef} style={{ display: 'flex', alignItems: 'center' }}>
+        Social Media <span style={{ marginLeft: '4px', lineHeight: 1 }}>&#x21FE;</span>
+      </div>, 
+      onClick: () => handleSocialClick(new MouseEvent('click') as any)
+    },
+    { 
+      children: <div ref={themeButtonRef} style={{ display: 'flex', alignItems: 'center' }}>
+        Theme <span style={{ marginLeft: '4px', lineHeight: 1 }}>&#x21FE;</span>
+      </div>, 
+      onClick: () => handleThemeClick(new MouseEvent('click') as any)
+    },
   ];
 
   const left = (
     <div className={styles.actionGroup}>
-      <ActionButton onClick={handleCloseAllMenus}>
-        Heidi + Kareem
-      </ActionButton>
+      <div ref={mainButtonRef}>
+        <ActionButton onClick={handleMainClick}>
+          <span style={{ display: 'flex', alignItems: 'center' }}>
+            Heidi &#10084; Kareem <span style={{ marginLeft: '4px', lineHeight: 1 }}>&#x2193;</span>
+          </span>
+        </ActionButton>
+      </div>
       <div ref={albumButtonRef}>
         <ActionButton 
           onClick={handleAlbumClick}
@@ -163,6 +260,42 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
         left={left}
         right={right}
       />
+      {mainMenuOpen && (
+        <DropdownMenu
+          style={{
+            position: 'fixed',
+            top: mainMenuPosition.top,
+            left: mainMenuPosition.left,
+            zIndex: 1001
+          }}
+          items={mainMenuItems}
+          onClose={handleCloseAllMenus}
+        />
+      )}
+      {socialMenuOpen && (
+        <DropdownMenu
+          style={{
+            position: 'fixed',
+            top: socialMenuPosition.top,
+            left: socialMenuPosition.left,
+            zIndex: 1002
+          }}
+          items={socialMenuItems}
+          onClose={() => setSocialMenuOpen(false)}
+        />
+      )}
+      {themeMenuOpen && (
+        <DropdownMenu
+          style={{
+            position: 'fixed',
+            top: themeMenuPosition.top,
+            left: themeMenuPosition.left,
+            zIndex: 1002
+          }}
+          items={themeMenuItems}
+          onClose={() => setThemeMenuOpen(false)}
+        />
+      )}
       {albumMenuOpen && (
         <DropdownMenu
           style={{

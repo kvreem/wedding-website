@@ -159,6 +159,7 @@ export default function HomePage() {
 
   return (
     <div className={styles.container}>
+      <DebugGrid />
       {!loading && temperature && (
         <>
           <MainNavigation 
