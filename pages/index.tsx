@@ -19,6 +19,7 @@ import TravelSection from '../components/TravelSection';
 import FAQSection from '../components/FAQSection';
 import ConciergeSection from '../components/ConciergeSection';
 import MainNavigation from '../custom-components/MainNavigation';
+import Drawer from '../components/Drawer';
 
 interface WeatherData {
   hourly: {
@@ -174,279 +175,289 @@ export default function HomePage() {
             onPlaylistClick={handlePlaylistClick}
           />
           {/* Add padding to account for fixed top bar */}
-          <div className="pt-16">
-            {/* Always visible menu */}
-            <div className={styles.menu}>
-              <Card>
-                <TreeView 
-                  title="Menu" 
-                  defaultValue={true} 
-                  isRoot 
-                  expandedTitle="Collapse Menu"
-                  collapsedTitle="Expand Menu"
-                >
-                  <TreeView 
-                    title="RSVP" 
-                    isFile 
-                    onClick={handleRSVPClick}
+          <div className="pt-16 flex">
+            {/* Left drawer */}
+            <div className="fixed left-0 top-16 h-[calc(100vh-4rem)] z-50">
+              <Drawer defaultValue={false}>
+                <div className="w-[300px] bg-white">
+                  <Card title="FileSystem.exe">
+                    <TreeView 
+                      title="Files" 
+                      defaultValue={true} 
+                      isRoot 
+                      expandedTitle="Collapse Files"
+                      collapsedTitle="Expand Files"
+                    >
+                      <TreeView title="Album">
+                        <TreeView 
+                          title="a.JPG" 
+                          isFile 
+                          onClick={() => handleAlbumClick('a.JPG')}
+                        />
+                        <TreeView 
+                          title="b.JPG" 
+                          isFile 
+                          onClick={() => handleAlbumClick('b.JPG')}
+                        />
+                        <TreeView 
+                          title="c.JPG" 
+                          isFile 
+                          onClick={() => handleAlbumClick('c.JPG')}
+                        />
+                        <TreeView 
+                          title="d.JPG" 
+                          isFile 
+                          onClick={() => handleAlbumClick('d.JPG')}
+                        />
+                        <TreeView 
+                          title="e.JPG" 
+                          isFile 
+                          onClick={() => handleAlbumClick('e.JPG')}
+                        />
+                        <TreeView 
+                          title="f.JPG" 
+                          isFile 
+                          onClick={() => handleAlbumClick('f.JPG')}
+                        />
+                        <TreeView 
+                          title="g.JPG" 
+                          isFile 
+                          onClick={() => handleAlbumClick('g.JPG')}
+                        />
+                        <TreeView 
+                          title="h.JPG" 
+                          isFile 
+                          onClick={() => handleAlbumClick('h.JPG')}
+                        />
+                        <TreeView 
+                          title="i.JPG" 
+                          isFile 
+                          onClick={() => handleAlbumClick('i.JPG')}
+                        />
+                        <TreeView 
+                          title="j.JPG" 
+                          isFile 
+                          onClick={() => handleAlbumClick('j.JPG')}
+                        />
+                        <TreeView 
+                          title="k.JPG" 
+                          isFile 
+                          onClick={() => handleAlbumClick('k.JPG')}
+                        />
+                        <TreeView 
+                          title="l.JPG" 
+                          isFile 
+                          onClick={() => handleAlbumClick('l.JPG')}
+                        />
+                        <TreeView 
+                          title="m.JPG" 
+                          isFile 
+                          onClick={() => handleAlbumClick('m.JPG')}
+                        />
+                      </TreeView>
+                      <TreeView 
+                        title="Concierge" 
+                        isFile 
+                        onClick={() => handleMenuClick('concierge')}
+                      />
+                      <TreeView 
+                        title="Details"
+                      >
+                        <TreeView 
+                          title="Programme" 
+                          isFile 
+                          onClick={() => handleMenuClick('venue')}
+                        />
+                        <TreeView 
+                          title="Stays" 
+                          isFile 
+                          onClick={() => handleMenuClick('stays')}
+                        />
+                        <TreeView 
+                          title="Travel" 
+                          isFile 
+                          onClick={() => handleMenuClick('travel')}
+                        />
+                      </TreeView>
+                      <TreeView 
+                        title="FAQ" 
+                        isFile 
+                        onClick={() => handleMenuClick('faq')}
+                      />
+                      <TreeView 
+                        title="Playlist" 
+                        isFile 
+                        onClick={handlePlaylistClick}
+                      />
+                      <TreeView 
+                        title="RSVP" 
+                        isFile 
+                        onClick={handleRSVPClick}
+                      />
+                      <TreeView 
+                        title="Story" 
+                        isFile 
+                        onClick={handleStoryClick}
+                      />
+                    </TreeView>
+                  </Card>
+                </div>
+              </Drawer>
+            </div>
+            {/* Main content */}
+            <div className="flex-1 pl-12">
+              <div className={styles.content}>
+                {showRSVP ? (
+                  <RSVPForm onClose={resetAllSections} />
+                ) : showStory ? (
+                  <Story 
+                    onClose={resetAllSections}
+                    hasPlayed={storyHasPlayed}
+                    onAutoPlayComplete={() => setStoryHasPlayed(true)}
                   />
-                  <TreeView 
-                    title="Story" 
-                    isFile 
-                    onClick={handleStoryClick}
-                  />
-                  <TreeView title="Album">
-                    <TreeView 
-                      title="a.JPG" 
-                      isFile 
-                      onClick={() => handleAlbumClick('a.JPG')}
-                    />
-                    <TreeView 
-                      title="b.JPG" 
-                      isFile 
-                      onClick={() => handleAlbumClick('b.JPG')}
-                    />
-                    <TreeView 
-                      title="c.JPG" 
-                      isFile 
-                      onClick={() => handleAlbumClick('c.JPG')}
-                    />
-                    <TreeView 
-                      title="d.JPG" 
-                      isFile 
-                      onClick={() => handleAlbumClick('d.JPG')}
-                    />
-                    <TreeView 
-                      title="e.JPG" 
-                      isFile 
-                      onClick={() => handleAlbumClick('e.JPG')}
-                    />
-                    <TreeView 
-                      title="f.JPG" 
-                      isFile 
-                      onClick={() => handleAlbumClick('f.JPG')}
-                    />
-                    <TreeView 
-                      title="g.JPG" 
-                      isFile 
-                      onClick={() => handleAlbumClick('g.JPG')}
-                    />
-                    <TreeView 
-                      title="h.JPG" 
-                      isFile 
-                      onClick={() => handleAlbumClick('h.JPG')}
-                    />
-                    <TreeView 
-                      title="i.JPG" 
-                      isFile 
-                      onClick={() => handleAlbumClick('i.JPG')}
-                    />
-                    <TreeView 
-                      title="j.JPG" 
-                      isFile 
-                      onClick={() => handleAlbumClick('j.JPG')}
-                    />
-                    <TreeView 
-                      title="k.JPG" 
-                      isFile 
-                      onClick={() => handleAlbumClick('k.JPG')}
-                    />
-                    <TreeView 
-                      title="l.JPG" 
-                      isFile 
-                      onClick={() => handleAlbumClick('l.JPG')}
-                    />
-                    <TreeView 
-                      title="m.JPG" 
-                      isFile 
-                      onClick={() => handleAlbumClick('m.JPG')}
-                    />
-                  </TreeView>
-                  <TreeView 
-                    title="Details"
-                  >
-                    <TreeView 
-                      title="Travel" 
-                      isFile 
-                      onClick={() => handleMenuClick('travel')}
-                    />
-                    <TreeView 
-                      title="Programme" 
-                      isFile 
-                      onClick={() => handleMenuClick('venue')}
-                    />
-                    <TreeView 
-                      title="Stays" 
-                      isFile 
-                      onClick={() => handleMenuClick('stays')}
-                    />
-                  </TreeView>
-                  <TreeView 
-                    title="FAQ" 
-                    isFile 
-                    onClick={() => handleMenuClick('faq')}
-                  />
-                  <TreeView 
-                    title="Concierge" 
-                    isFile 
-                    onClick={() => handleMenuClick('concierge')}
-                  />
-                  <TreeView 
-                    title="Playlist" 
-                    isFile 
-                    onClick={handlePlaylistClick}
-                  />
-                </TreeView>
-              </Card>
+                ) : showVenue ? (
+                  <VenueSection onClose={resetAllSections} />
+                ) : showStays ? (
+                  <StaysSection onClose={resetAllSections} />
+                ) : showTravel ? (
+                  <TravelSection onClose={resetAllSections} />
+                ) : showFAQ ? (
+                  <FAQSection onClose={resetAllSections} />
+                ) : showConcierge ? (
+                  <ConciergeSection onClose={resetAllSections} />
+                ) : showPlaylist ? (
+                  <div className="relative">
+                    <div className="absolute top-0 right-0 -mt-4 -mr-4 z-50">
+                      <ActionButton 
+                        onClick={resetAllSections}
+                      >
+                        X
+                      </ActionButton>
+                    </div>
+                    <Card title="Playlist">
+                      <div className="relative w-full max-w-3xl mx-auto p-4">
+                        <div className="relative w-full">
+                          {playlistLoading && (
+                            <div className="absolute inset-0 flex justify-center items-center bg-white">
+                              <div className="w-[352px]">
+                                <div className={styles.playlistLoader}>
+                                  <div className={styles.progressText}>
+                                    Loading tunes...
+                                  </div>
+                                  <div className={styles.bar}>
+                                    <div className={styles.barContent}>
+                                      {'█'.repeat(Math.floor(playlistProgress / 2)) + '░'.repeat(50 - Math.floor(playlistProgress / 2))}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                          <iframe 
+                            className={`w-full transition-opacity duration-300 ${playlistLoading ? 'opacity-0' : 'opacity-100'}`}
+                            style={{
+                              borderRadius: "12px",
+                            }} 
+                            src="https://open.spotify.com/embed/playlist/1CoRxdb5G1QYu07Ztn4iOu?utm_source=generator" 
+                            width="100%" 
+                            height="352" 
+                            frameBorder="0" 
+                            allowFullScreen 
+                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                            loading="lazy"
+                            onLoad={() => {}}
+                          />
+                        </div>
+                      </div>
+                    </Card>
+                  </div>
+                ) : selectedImage ? (
+                  <div className={styles.selectedImage}>
+                    <div className="relative">
+                      <div className="absolute top-0 right-0 -mt-4 -mr-4 z-50">
+                        <ActionButton 
+                          onClick={resetAllSections}
+                        >
+                          X
+                        </ActionButton>
+                      </div>
+                      <Card title={selectedImage}>
+                        <div className={styles.imageContainer}>
+                          <Image
+                            src={`/images/album/${selectedImage}`}
+                            alt={`Album image - ${selectedImage}`}
+                            width={1200}
+                            height={800}
+                            className="w-auto h-auto"
+                            priority
+                            onError={(e) => {
+                              console.error('Image failed to load:', `/images/album/${selectedImage}`);
+                            }}
+                          />
+                        </div>
+                      </Card>
+                    </div>
+                  </div>
+                ) : (
+                  <CirclingElements radius={150} duration={20}>
+                    <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
+                      <Image 
+                        src="/images/1.jpg" 
+                        alt="Wedding Image 1" 
+                        width={150} 
+                        height={150} 
+                        className="rounded-lg object-cover w-full h-full"
+                        priority
+                      />
+                    </div>
+                    <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
+                      <Image 
+                        src="/images/2.jpg" 
+                        alt="Wedding Image 2" 
+                        width={150} 
+                        height={150} 
+                        className="rounded-lg object-cover w-full h-full"
+                        priority
+                      />
+                    </div>
+                    <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
+                      <Image 
+                        src="/images/3.jpg" 
+                        alt="Wedding Image 3" 
+                        width={150} 
+                        height={150} 
+                        className="rounded-lg object-cover w-full h-full"
+                        priority
+                      />
+                    </div>
+                    <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
+                      <Image 
+                        src="/images/4.jpg" 
+                        alt="Wedding Image 4" 
+                        width={150} 
+                        height={150} 
+                        className="rounded-lg object-cover w-full h-full"
+                        priority
+                      />
+                    </div>
+                    <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
+                      <Image 
+                        src="/images/5.jpg" 
+                        alt="Wedding Image 5" 
+                        width={150} 
+                        height={150} 
+                        className="rounded-lg object-cover w-full h-full"
+                        priority
+                      />
+                    </div>
+                  </CirclingElements>
+                )}
+              </div>
             </div>
           </div>
 
           <div className="fixed bottom-5 left-5">
             <Badge>Made with &#10084; in NYC</Badge>
-          </div>
-
-          <div className={styles.content}>
-            {showRSVP ? (
-              <RSVPForm onClose={resetAllSections} />
-            ) : showStory ? (
-              <Story 
-                onClose={resetAllSections}
-                hasPlayed={storyHasPlayed}
-                onAutoPlayComplete={() => setStoryHasPlayed(true)}
-              />
-            ) : showVenue ? (
-              <VenueSection onClose={resetAllSections} />
-            ) : showStays ? (
-              <StaysSection onClose={resetAllSections} />
-            ) : showTravel ? (
-              <TravelSection onClose={resetAllSections} />
-            ) : showFAQ ? (
-              <FAQSection onClose={resetAllSections} />
-            ) : showConcierge ? (
-              <ConciergeSection onClose={resetAllSections} />
-            ) : showPlaylist ? (
-              <div className="relative">
-                <div className="absolute top-0 right-0 -mt-4 -mr-4 z-50">
-                  <ActionButton 
-                    onClick={resetAllSections}
-                  >
-                    X
-                  </ActionButton>
-                </div>
-                <Card title="Playlist">
-                  <div className="relative w-full max-w-3xl mx-auto p-4">
-                    <div className="relative w-full">
-                      {playlistLoading && (
-                        <div className="absolute inset-0 flex justify-center items-center bg-white">
-                          <div className="w-[352px]">
-                            <div className={styles.playlistLoader}>
-                              <div className={styles.progressText}>
-                                Loading tunes...
-                              </div>
-                              <div className={styles.bar}>
-                                <div className={styles.barContent}>
-                                  {'█'.repeat(Math.floor(playlistProgress / 2)) + '░'.repeat(50 - Math.floor(playlistProgress / 2))}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                      <iframe 
-                        className={`w-full transition-opacity duration-300 ${playlistLoading ? 'opacity-0' : 'opacity-100'}`}
-                        style={{
-                          borderRadius: "12px",
-                        }} 
-                        src="https://open.spotify.com/embed/playlist/1CoRxdb5G1QYu07Ztn4iOu?utm_source=generator" 
-                        width="100%" 
-                        height="352" 
-                        frameBorder="0" 
-                        allowFullScreen 
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                        loading="lazy"
-                        onLoad={() => {}}
-                      />
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            ) : selectedImage ? (
-              <div className={styles.selectedImage}>
-                <div className={styles.imageContainer}>
-                  <Image
-                    src={`/images/album/${selectedImage}`}
-                    alt={`Album image - ${selectedImage}`}
-                    width={1200}
-                    height={800}
-                    className="w-auto h-auto"
-                    priority
-                    onError={(e) => {
-                      console.error('Image failed to load:', `/images/album/${selectedImage}`);
-                    }}
-                  />
-                  <div className="absolute top-0 right-0 -mt-4 -mr-4">
-                    <ActionButton 
-                      onClick={resetAllSections}
-                    >
-                      X
-                    </ActionButton>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <CirclingElements radius={150} duration={20}>
-                <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
-                  <Image 
-                    src="/images/1.jpg" 
-                    alt="Wedding Image 1" 
-                    width={150} 
-                    height={150} 
-                    className="rounded-lg object-cover w-full h-full"
-                    priority
-                  />
-                </div>
-                <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
-                  <Image 
-                    src="/images/2.jpg" 
-                    alt="Wedding Image 2" 
-                    width={150} 
-                    height={150} 
-                    className="rounded-lg object-cover w-full h-full"
-                    priority
-                  />
-                </div>
-                <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
-                  <Image 
-                    src="/images/3.jpg" 
-                    alt="Wedding Image 3" 
-                    width={150} 
-                    height={150} 
-                    className="rounded-lg object-cover w-full h-full"
-                    priority
-                  />
-                </div>
-                <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
-                  <Image 
-                    src="/images/4.jpg" 
-                    alt="Wedding Image 4" 
-                    width={150} 
-                    height={150} 
-                    className="rounded-lg object-cover w-full h-full"
-                    priority
-                  />
-                </div>
-                <div className="w-[min(150px,15vw)] h-[min(150px,15vw)]">
-                  <Image 
-                    src="/images/5.jpg" 
-                    alt="Wedding Image 5" 
-                    width={150} 
-                    height={150} 
-                    className="rounded-lg object-cover w-full h-full"
-                    priority
-                  />
-                </div>
-              </CirclingElements>
-            )}
           </div>
         </>
       )}
