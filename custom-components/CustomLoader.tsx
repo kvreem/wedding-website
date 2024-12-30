@@ -3,11 +3,11 @@ import BlockLoader from '@components/BlockLoader';
 import styles from './CustomLoader.module.scss';
 
 const LOADING_STEPS = [
-  'CONSUMING ICED HIBISCUS',
-  'INSTALLING ZAFFE.EXE',
-  'PRACTICING CAKE CUTTING WITH SWORD',
-  'UPLOADING AMR DIAB CDS',
-  'CHECKING THE WEATHER IN GOUNA'
+  'CONSUMING ICED HIBISCUS 🌺',
+  'INSTALLING ZAFFE.EXE 🪘',
+  'PRACTICING CAKE CUTTING WITH SWORD 🍰',
+  'UPLOADING AMR DIAB CDS 💿',
+  'CHECKING THE WEATHER IN GOUNA 🌴'
 ];
 
 const ASCII_ART = `                       #######
@@ -47,7 +47,7 @@ _______________________$$$$$________|\\\\\\\\\\\_________________
                       $$$$$$$          ||   ||
                      $$$$$$$$$
 """""""""""""""""""""$$$$$$$$$"""""""""""""""""""""""""""""""
-PACKING BAGS...BUYING TICKETS TO EGYPT...`;
+PACKING BAGS...BUYING TICKETS TO EGYPT...APPLYING SPF-30.....`;
 
 interface CustomLoaderProps {
   onLoadingComplete?: () => void;
@@ -139,6 +139,8 @@ const CustomLoader: React.FC<CustomLoaderProps> = ({ onLoadingComplete }) => {
           {showPrompt && (
             <div className={styles.prompt}>
               PRESS SPACE TO ENTER [{countdown}]
+              <br />
+              BY ENTERING YOU AGREE TO RSVP BY 03-01-2025 
             </div>
           )}
         </>
