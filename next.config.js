@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const path = require('path');
+const moduleResolver = require('./module-resolver');
 
 const nextConfig = {
   reactStrictMode: true,
@@ -18,21 +19,13 @@ const nextConfig = {
     largePageDataBytes: 128 * 100000,
   },
   webpack: (config) => {
-    // Properly merge aliases with existing ones
+    // Use the centralized module resolver for aliases
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@components': path.join(__dirname, 'components'),
-      '@custom-components': path.join(__dirname, 'custom-components'),
-      '@pages': path.join(__dirname, 'pages'),
-      '@modules': path.join(__dirname, 'modules'),
-      '@system': path.join(__dirname, 'system'),
-      '@demos': path.join(__dirname, 'demos'),
-      '@common': path.join(__dirname, 'common'),
-      '@data': path.join(__dirname, 'data'),
-      '@root': __dirname,
+      ...moduleResolver.alias
     };
 
-    // Add extensions without overwriting the resolve object
+    // Add extensions without overwriting
     config.resolve.extensions = [
       ...(config.resolve.extensions || []),
       '.ts', '.tsx', '.js', '.jsx', '.json'
@@ -45,7 +38,7 @@ const nextConfig = {
       ...(config.resolve.modules || [])
     ];
     
-    // Your existing font loader config
+    // Font loader config
     config.module.rules.push({
       test: /\.(woff|woff2|eot|ttf|otf)$/,
       use: {

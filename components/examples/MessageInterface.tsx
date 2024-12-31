@@ -9,7 +9,7 @@ import MessageViewer from '@components/MessageViewer';
 import ModalError from '@components/modals/ModalError';
 import Navigation from '@components/Navigation';
 import RowEllipsis from '@components/RowEllipsis';
-import SidebarLayout from '../SidebarLayout';
+import SidebarLayout from '@components/SidebarLayout';
 
 
 import * as React from 'react';
