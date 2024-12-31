@@ -40,7 +40,14 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
   const [isDarkMode, setIsDarkMode] = React.useState(false);
   const [isDebugMode, setIsDebugMode] = React.useState(false);
   const [isScreensaverActive, setIsScreensaverActive] = React.useState(false);
-  const { isIdle, setIsIdle } = useIdleTimer(15000); // 15 seconds
+  const { isIdle } = useIdleTimer(15000); // 15 seconds for testing
+
+  // Only activate screensaver on idle, don't deactivate on activity
+  React.useEffect(() => {
+    if (isIdle) {
+      setIsScreensaverActive(true);
+    }
+  }, [isIdle]);
 
   const tempFahrenheit = temperature ? Math.round((temperature * 9/5) + 32) : null;
   const degreeSymbol = '°';
