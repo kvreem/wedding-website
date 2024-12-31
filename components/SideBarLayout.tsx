@@ -1,6 +1,6 @@
 'use client';
 
-import styles from '@components/SidebarLayout.module.scss';
+import styles from './SidebarLayout.module.scss';
 
 import * as React from 'react';
 
@@ -57,4 +57,5 @@ const SidebarLayout: React.FC<SidebarLayoutProps> = ({ defaultSidebarWidth = 20,
   );
 };
 
+export type { SidebarLayoutProps };
 export default SidebarLayout;
