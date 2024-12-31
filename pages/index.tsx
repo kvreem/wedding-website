@@ -26,6 +26,7 @@ import Image2 from '../public/images/2.jpg';
 import Image3 from '../public/images/3.jpg';
 import Image4 from '../public/images/4.jpg';
 import Image5 from '../public/images/5.jpg';
+import DesktopIcons from '../custom-components/DesktopIcons';
 
 interface WeatherData {
   hourly: {
@@ -50,6 +51,80 @@ export default function HomePage() {
   const [playlistLoading, setPlaylistLoading] = useState(true);
   const [storyHasPlayed, setStoryHasPlayed] = useState(false);
   const [playlistProgress, setPlaylistProgress] = useState(0);
+
+  const handleRSVPClick = () => {
+    resetAllSections();
+    setShowRSVP(true);
+  };
+
+  const handleStoryClick = () => {
+    resetAllSections();
+    setShowStory(true);
+    
+  };
+
+  const handleMenuClick = (section?: string) => {
+    resetAllSections();
+    if (section === 'venue') setShowVenue(true);
+    if (section === 'stays') setShowStays(true);
+    if (section === 'travel') setShowTravel(true);
+    if (section === 'faq') setShowFAQ(true);
+    if (section === 'concierge') setShowConcierge(true);
+  };
+
+  const handlePlaylistClick = () => {
+    resetAllSections();
+    setShowPlaylist(true);
+    setPlaylistLoading(true);
+  };
+
+  const desktopIcons = [
+    { 
+      name: 'Album', 
+      icon: 'album.ico',
+      onClick: () => handleMenuClick('album')
+    },
+    { 
+      name: 'Concierge', 
+      icon: 'concierge.ico',
+      onClick: () => handleMenuClick('concierge')
+    },
+    { 
+      name: 'FAQ',
+      icon: 'faq.ico',
+      onClick: () => handleMenuClick('faq')
+    },
+    { 
+      name: 'Programme', 
+      icon: 'programme.ico',
+      onClick: () => handleMenuClick('venue')
+    },
+    { 
+      name: 'RSVP', 
+      icon: 'rsvp.ico',
+      onClick: handleRSVPClick
+    },
+    { 
+      name: 'Stays', 
+      icon: 'stays.ico',
+      onClick: () => handleMenuClick('stays')
+    },
+    { 
+      name: 'Story', 
+      icon: 'story.ico',
+      onClick: handleStoryClick
+    },
+    { 
+      name: 'Travel', 
+      icon: 'travel.ico',
+      onClick: () => handleMenuClick('travel')
+    },
+    { 
+      name: 'Playlist', 
+      icon: 'playlist.ico',
+      onClick: handlePlaylistClick
+    },
+  ];
 
   useEffect(() => {
     // Remove debug grid toggle on mount
@@ -115,31 +190,6 @@ export default function HomePage() {
   const handleAlbumClick = (imageName: string) => {
     resetAllSections();
     setSelectedImage(imageName);
-  };
-
-  const handleRSVPClick = () => {
-    resetAllSections();
-    setShowRSVP(true);
-  };
-
-  const handleStoryClick = () => {
-    resetAllSections();
-    setShowStory(true);
-  };
-
-  const handleMenuClick = (section?: string) => {
-    resetAllSections();
-    setShowVenue(section === 'venue');
-    setShowStays(section === 'stays');
-    setShowTravel(section === 'travel');
-    setShowFAQ(section === 'faq');
-    setShowConcierge(section === 'concierge');
-  };
-
-  const handlePlaylistClick = () => {
-    resetAllSections();
-    setShowPlaylist(true);
-    setPlaylistLoading(true);
   };
 
   return (
@@ -383,64 +433,71 @@ export default function HomePage() {
                     </div>
                   </div>
                 ) : (
-                  <CirclingElements radius={150} duration={20}>
-                    <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
-                      <Image 
-                        src={Image1}
-                        alt="Wedding Image 1" 
-                        className="rounded-lg object-cover"
-                        fill
-                        sizes="(max-width: 195px) 19.5vw, 195px"
-                        priority
-                      />
+                  <>
+                    <div className="fixed inset-0 flex items-center justify-center">
+                      <div className="relative w-full h-full flex flex-col items-center justify-center">
+                        <CirclingElements radius={150} duration={20}>
+                          <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
+                            <Image 
+                              src={Image1}
+                              alt="Wedding Image 1" 
+                              className="rounded-lg object-cover"
+                              fill
+                              sizes="(max-width: 195px) 19.5vw, 195px"
+                              priority
+                            />
+                          </div>
+                          <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
+                            <Image 
+                              src={Image2}
+                              alt="Wedding Image 2" 
+                              className="rounded-lg object-cover"
+                              fill
+                              sizes="(max-width: 195px) 19.5vw, 195px"
+                              priority
+                            />
+                          </div>
+                          <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
+                            <Image 
+                              src={Image3}
+                              alt="Wedding Image 3" 
+                              className="rounded-lg object-cover"
+                              fill
+                              sizes="(max-width: 195px) 19.5vw, 195px"
+                              priority
+                            />
+                          </div>
+                          <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
+                            <Image 
+                              src={Image4}
+                              alt="Wedding Image 4" 
+                              className="rounded-lg object-cover"
+                              fill
+                              sizes="(max-width: 195px) 19.5vw, 195px"
+                              priority
+                            />
+                          </div>
+                          <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
+                            <Image 
+                              src={Image5}
+                              alt="Wedding Image 5" 
+                              className="rounded-lg object-cover"
+                              fill
+                              sizes="(max-width: 195px) 19.5vw, 195px"
+                              priority
+                            />
+                          </div>
+                        </CirclingElements>
+                        <DesktopIcons icons={desktopIcons} />
+                      </div>
                     </div>
-                    <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
-                      <Image 
-                        src={Image2}
-                        alt="Wedding Image 2" 
-                        className="rounded-lg object-cover"
-                        fill
-                        sizes="(max-width: 195px) 19.5vw, 195px"
-                        priority
-                      />
-                    </div>
-                    <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
-                      <Image 
-                        src={Image3}
-                        alt="Wedding Image 3" 
-                        className="rounded-lg object-cover"
-                        fill
-                        sizes="(max-width: 195px) 19.5vw, 195px"
-                        priority
-                      />
-                    </div>
-                    <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
-                      <Image 
-                        src={Image4}
-                        alt="Wedding Image 4" 
-                        className="rounded-lg object-cover"
-                        fill
-                        sizes="(max-width: 195px) 19.5vw, 195px"
-                        priority
-                      />
-                    </div>
-                    <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
-                      <Image 
-                        src={Image5}
-                        alt="Wedding Image 5" 
-                        className="rounded-lg object-cover"
-                        fill
-                        sizes="(max-width: 195px) 19.5vw, 195px"
-                        priority
-                      />
-                    </div>
-                  </CirclingElements>
+                  </>
                 )}
               </div>
             </div>
           </div>
 
-          <div className="fixed bottom-5 left-5">
+          <div className="fixed bottom-5 left-5 hidden md:block">
             <Badge>Made with &#10084; in NYC</Badge>
           </div>
         </>

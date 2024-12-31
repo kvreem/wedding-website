@@ -30,23 +30,14 @@ const ConciergeSection: React.FC<ConciergeSectionProps> = ({ onClose }) => {
       </div>
       <div className="fixed inset-0 -z-10 pointer-events-none">
         <Floating sensitivity={0.03} easingFactor={0.02} className="relative w-full h-full">
-          <FloatingElement depth={1.2} className="absolute top-[5%] left-[5%] w-[220px] h-[220px]">
+          <FloatingElement depth={1.5} className="absolute top-[10%] left-[15%] w-[250px] h-[250px]">
             <Image src="/images/floating/1.JPEG" alt="Floating image 1" className="rounded-lg object-cover" fill priority />
           </FloatingElement>
-          <FloatingElement depth={2.2} className="absolute top-[8%] right-[8%] w-[200px] h-[200px]">
+          <FloatingElement depth={2} className="absolute top-[20%] right-[20%] w-[200px] h-[200px]">
             <Image src="/images/floating/2.JPEG" alt="Floating image 2" className="rounded-lg object-cover" fill priority />
           </FloatingElement>
-          <FloatingElement depth={1.8} className="absolute top-[65%] left-[15%] w-[240px] h-[240px]">
+          <FloatingElement depth={1} className="absolute bottom-[25%] left-[25%] w-[300px] h-[300px]">
             <Image src="/images/floating/3.JPEG" alt="Floating image 3" className="rounded-lg object-cover" fill priority />
-          </FloatingElement>
-          <FloatingElement depth={2.5} className="absolute top-[75%] left-[38%] w-[180px] h-[180px]">
-            <Image src="/images/floating/4.JPG" alt="Floating image 4" className="rounded-lg object-cover" fill priority />
-          </FloatingElement>
-          <FloatingElement depth={1.5} className="absolute top-[68%] right-[35%] w-[210px] h-[210px]">
-            <Image src="/images/floating/5.JPG" alt="Floating image 5" className="rounded-lg object-cover" fill priority />
-          </FloatingElement>
-          <FloatingElement depth={2.8} className="absolute top-[72%] right-[12%] w-[190px] h-[190px]">
-            <Image src="/images/floating/6.JPG" alt="Floating image 6" className="rounded-lg object-cover" fill priority />
           </FloatingElement>
         </Floating>
       </div>

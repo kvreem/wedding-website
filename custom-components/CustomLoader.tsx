@@ -3,11 +3,11 @@ import BlockLoader from '@components/BlockLoader';
 import styles from './CustomLoader.module.scss';
 
 const LOADING_STEPS = [
-  'CONSUMING ICED HIBISCUS 🌺',
+  'DOWNLOADING HIBISCUS.DLL 🌺',
   'INSTALLING ZAFFE.EXE 🪘',
-  'CAKE CUTTING WITH SWORD 🍰🗡️',
-  'UPLOADING AMR DIAB CDS 💿',
-  'CHECKING THE WEATHER IN GOUNA 🌴'
+  'WATCHING SWORD-CAKE-CUTTING.MP4 🍰🗡️',
+  'UPLOADING TAMALLY-MAAK-AMR-DIAB.MP3 💿',
+  'CHECKING THE WEATHER IN EL GOUNA 🌴'
 ];
 
 const ASCII_ART = `                       #######

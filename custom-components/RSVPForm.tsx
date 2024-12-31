@@ -101,31 +101,6 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
     { value: 'allergic_nuts', label: 'Allergic: Nuts' },
   ];
 
-  const FloatingImages = () => (
-    <div className="fixed inset-0 -z-10 pointer-events-none">
-      <Floating sensitivity={0.03} easingFactor={0.02} className="relative w-full h-full">
-        <FloatingElement depth={2.3} className="absolute top-[5%] left-[5%] w-[220px] h-[220px]">
-          <Image src="/images/floating/1.JPEG" alt="Floating image 1" className="rounded-lg object-cover" fill priority />
-        </FloatingElement>
-        <FloatingElement depth={1.6} className="absolute top-[8%] right-[8%] w-[200px] h-[200px]">
-          <Image src="/images/floating/2.JPEG" alt="Floating image 2" className="rounded-lg object-cover" fill priority />
-        </FloatingElement>
-        <FloatingElement depth={2.8} className="absolute top-[65%] left-[15%] w-[240px] h-[240px]">
-          <Image src="/images/floating/3.JPEG" alt="Floating image 3" className="rounded-lg object-cover" fill priority />
-        </FloatingElement>
-        <FloatingElement depth={1.4} className="absolute top-[75%] left-[38%] w-[180px] h-[180px]">
-          <Image src="/images/floating/4.JPG" alt="Floating image 4" className="rounded-lg object-cover" fill priority />
-        </FloatingElement>
-        <FloatingElement depth={2.5} className="absolute top-[68%] right-[35%] w-[210px] h-[210px]">
-          <Image src="/images/floating/5.JPG" alt="Floating image 5" className="rounded-lg object-cover" fill priority />
-        </FloatingElement>
-        <FloatingElement depth={1.9} className="absolute top-[72%] right-[12%] w-[190px] h-[190px]">
-          <Image src="/images/floating/6.JPG" alt="Floating image 6" className="rounded-lg object-cover" fill priority />
-        </FloatingElement>
-      </Floating>
-    </div>
-  );
-
   if (isSubmitted) {
     return (
       <div className={styles.root}>
@@ -142,7 +117,19 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
             </Card>
           </div>
         </div>
-        <FloatingImages />
+        <div className="fixed inset-0 -z-10 pointer-events-none">
+          <Floating sensitivity={0.03} easingFactor={0.02} className="relative w-full h-full">
+            <FloatingElement depth={1.5} className="absolute top-[10%] left-[15%] w-[250px] h-[250px]">
+              <Image src="/images/floating/4.JPG" alt="Floating image 4" className="rounded-lg object-cover" fill priority />
+            </FloatingElement>
+            <FloatingElement depth={2} className="absolute top-[20%] right-[20%] w-[200px] h-[200px]">
+              <Image src="/images/floating/5.JPG" alt="Floating image 5" className="rounded-lg object-cover" fill priority />
+            </FloatingElement>
+            <FloatingElement depth={1} className="absolute bottom-[25%] left-[25%] w-[300px] h-[300px]">
+              <Image src="/images/floating/6.JPG" alt="Floating image 6" className="rounded-lg object-cover" fill priority />
+            </FloatingElement>
+          </Floating>
+        </div>
       </div>
     );
   }
@@ -181,7 +168,19 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
             </Card>
           </div>
         </div>
-        <FloatingImages />
+        <div className="fixed inset-0 -z-10 pointer-events-none">
+          <Floating sensitivity={0.03} easingFactor={0.02} className="relative w-full h-full">
+            <FloatingElement depth={1.5} className="absolute top-[10%] left-[15%] w-[250px] h-[250px]">
+              <Image src="/images/floating/1.JPEG" alt="Floating image 1" className="rounded-lg object-cover" fill priority />
+            </FloatingElement>
+            <FloatingElement depth={2} className="absolute top-[20%] right-[20%] w-[200px] h-[200px]">
+              <Image src="/images/floating/2.JPEG" alt="Floating image 2" className="rounded-lg object-cover" fill priority />
+            </FloatingElement>
+            <FloatingElement depth={1} className="absolute bottom-[25%] left-[25%] w-[300px] h-[300px]">
+              <Image src="/images/floating/3.JPEG" alt="Floating image 3" className="rounded-lg object-cover" fill priority />
+            </FloatingElement>
+          </Floating>
+        </div>
       </div>
     );
   }
@@ -265,7 +264,19 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
           </Card>
         </div>
       </div>
-      <FloatingImages />
+      <div className="fixed inset-0 -z-10 pointer-events-none">
+        <Floating sensitivity={0.03} easingFactor={0.02} className="relative w-full h-full">
+          <FloatingElement depth={1.5} className="absolute top-[10%] left-[15%] w-[250px] h-[250px]">
+            <Image src="/images/floating/4.JPG" alt="Floating image 4" className="rounded-lg object-cover" fill priority />
+          </FloatingElement>
+          <FloatingElement depth={2} className="absolute top-[20%] right-[20%] w-[200px] h-[200px]">
+            <Image src="/images/floating/5.JPG" alt="Floating image 5" className="rounded-lg object-cover" fill priority />
+          </FloatingElement>
+          <FloatingElement depth={1} className="absolute bottom-[25%] left-[25%] w-[300px] h-[300px]">
+            <Image src="/images/floating/6.JPG" alt="Floating image 6" className="rounded-lg object-cover" fill priority />
+          </FloatingElement>
+        </Floating>
+      </div>
     </div>
   );
 };
