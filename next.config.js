@@ -3,6 +3,9 @@ const path = require('path');
 const moduleResolver = require('./module-resolver');
 
 const nextConfig = {
+   sassOptions: {
+        includePaths: [path.join(__dirname, 'styles')],
+  },
   reactStrictMode: true,
   transpilePackages: ['@components'],
   images: {
