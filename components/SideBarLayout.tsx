@@ -1,10 +1,10 @@
 'use client';
 
-import styles from './SidebarLayout.module.scss';
+import styles from '@components/SidebarLayout.module.scss';
 
 import * as React from 'react';
 
-interface SidebarLayoutProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue'> {
+export interface SidebarLayoutProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue'> {
   children?: React.ReactNode;
   sidebar?: React.ReactNode;
   defaultSidebarWidth?: number;
@@ -57,5 +57,4 @@ const SidebarLayout: React.FC<SidebarLayoutProps> = ({ defaultSidebarWidth = 20,
   );
 };
 
-export type { SidebarLayoutProps };
 export default SidebarLayout;
