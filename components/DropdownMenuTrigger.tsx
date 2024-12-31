@@ -5,6 +5,7 @@ import styles from '@components/DropdownMenuTrigger.module.scss';
 import * as React from 'react';
 
 import DropdownMenu from '@components/DropdownMenu';
+import ModalTrigger from '@components/ModalTrigger';
 import OutsideElementEvent from '@components/detectors/OutsideElementEvent';
 
 import { createPortal } from 'react-dom';

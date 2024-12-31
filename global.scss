@@ -210,10 +210,10 @@ body.theme-blue {
 body.theme-light {
   --theme-overlay: var(--color-black-100-4);
   --theme-background: var(--color-white);
-  --theme-background-modal: var(--color-gray-20);
+  --theme-background-modal: rgb(255, 249, 245, 1);
   --theme-background-modal-footer: var(--color-gray-40);
   --theme-background-input: var(--color-gray-10);
-  --theme-border: rgba(255, 246, 217, 1);
+  --theme-border: rgb(255, 249, 245, 1);
   --theme-border-subdued: var(--color-gray-40-2);
   --theme-error: var(--color-red-60);
   --theme-error-subdued: var(--color-red-60-3);
@@ -227,8 +227,8 @@ body.theme-light {
 
   --theme-button-foreground: var(--color-gray-30);
   --theme-button-background: var(--color-gray-20);
-  --theme-focused-foreground: rgba(255, 246, 217, 1);
-  --theme-focused-foreground-subdued: rgba(255, 246, 217, 0.4);
+  --theme-focused-foreground: rgb(255, 249, 245, 1);
+  --theme-focused-foreground-subdued: rgba(255, 249, 245, 0.4);
 
   background-image: url('/images/bg-img.jpeg');
   background-size: cover;
@@ -394,7 +394,7 @@ body {
 
 .item {
   &:hover, &:focus {
-    background: rgba(255, 246, 217, 1) !important;
+    background: rgb(255, 249, 245, 1) !important;
     outline: none;
   }
 }
@@ -402,7 +402,7 @@ body {
 .rootButton {
   button {
     &:hover, &:focus, &[data-selected="true"] {
-      background: rgba(255, 246, 217, 1) !important;
+      background: rgb(255, 249, 245, 1) !important;
       outline: none;
     }
   }
