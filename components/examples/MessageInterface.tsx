@@ -1,15 +1,15 @@
-import Avatar from '../Avatar';
-import ActionButton from '../ActionButton';
-import Divider from '../Divider';
-import DropdownMenuTrigger from '../DropdownMenuTrigger';
-import Indent from '../Indent';
-import Input from '../Input';
-import Message from '../Message';
-import MessageViewer from '../MessageViewer';
-import ModalError from '../modals/ModalError';
-import Navigation from '../Navigation';
-import RowEllipsis from '../RowEllipsis';
-import SidebarLayout from '../SidebarLayout';
+import Avatar from '@components/Avatar';
+import ActionButton from '@components/ActionButton';
+import Divider from '@components/Divider';
+import DropdownMenuTrigger from '@components/DropdownMenuTrigger';
+import Indent from '@components/Indent';
+import Input from '@components/Input';
+import Message from '@components/Message';
+import MessageViewer from '@components/MessageViewer';
+import ModalError from '@components/modals/ModalError';
+import Navigation from '@components/Navigation';
+import RowEllipsis from '@components/RowEllipsis';
+import SidebarLayout from '@components/SidebarLayout';
 
 import * as React from 'react';
 
