@@ -5,7 +5,7 @@ interface Dimensions {
   height: number;
 }
 
-export function useDimensions(ref: RefObject<HTMLDivElement>): Dimensions {
+export function useDimensions(ref: RefObject<HTMLDivElement | null>): Dimensions {
   const [dimensions, setDimensions] = useState<Dimensions>({ width: 0, height: 0 });
 
   useEffect(() => {
