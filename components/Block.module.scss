@@ -4,4 +4,5 @@
   background: var(--theme-text);
   height: calc(var(--font-size) * var(--theme-line-height-base));
   vertical-align: bottom;
+  flex-shrink: 0;
 }
