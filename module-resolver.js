@@ -11,5 +11,6 @@ module.exports = {
     '@common': path.resolve(__dirname, './common'),
     '@data': path.resolve(__dirname, './data'),
     '@root': __dirname,
+    '@fancy': path.resolve(__dirname, './fancy'),
   }
 }; 

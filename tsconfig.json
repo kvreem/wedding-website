@@ -28,6 +28,9 @@
       ],
       "@modules/*": [
         "./modules/*"
+      ],
+      "@fancy/*": [
+        "./fancy/*"
       ]
     },
     "target": "es5",

@@ -9,6 +9,14 @@ import ModalAlert from '../components/modals/ModalAlert';
 import ModalTrigger from '@components/ModalTrigger';
 import styles from './MainNavigation.module.scss';
 import ModalError from '@root/components/modals/ModalError';
+import dynamic from 'next/dynamic';
+import { useIdleTimer } from '@fancy/components/hooks/useIdleTimer';
+import CirclingElements from './CirclingElements';
+import DesktopIcons from './DesktopIcons';
+
+const Screensaver = dynamic(() => import('@fancy/components/Screensaver'), {
+  ssr: false,
+});
 
 interface MainNavigationProps {
   temperature?: number;
@@ -31,6 +39,12 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
   const themeButtonRef = React.useRef<HTMLDivElement>(null);
   const [isDarkMode, setIsDarkMode] = React.useState(false);
   const [isDebugMode, setIsDebugMode] = React.useState(false);
+  const [isScreensaverActive, setIsScreensaverActive] = React.useState(false);
+  const { isIdle, setIsIdle } = useIdleTimer(15000); // 15 seconds
+
+  React.useEffect(() => {
+    setIsScreensaverActive(isIdle);
+  }, [isIdle]);
 
   const tempFahrenheit = temperature ? Math.round((temperature * 9/5) + 32) : null;
   const degreeSymbol = '°';
@@ -84,20 +98,22 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
     handleCloseAllMenus();
   };
 
-  const socialMenuItems = [
-    { 
-      children: 'Instagram',
-      href: 'https://instagram.com/heidiandkareem',
-      target: '_blank'
-    },
-  ];
+  const handleScreensaverToggle = () => {
+    setIsScreensaverActive(true);
+    setIsIdle(true);
+    handleCloseAllMenus();
+  };
 
-  const themeMenuItems = [
-    { children: isDebugMode ? 'Exit Debug Mode' : 'Debug Mode', onClick: handleDebugModeToggle },
-    { children: isDarkMode ? 'Light Mode' : 'Dark Mode', onClick: handleDarkModeToggle },
-  ];
+  const handleScreensaverDismiss = () => {
+    setIsScreensaverActive(false);
+    setIsIdle(false);
+  };
 
   const mainMenuItems = [
+    {
+      children: 'Sleep',
+      onClick: handleScreensaverToggle
+    },
     { 
       children: <div ref={socialButtonRef} style={{ display: 'flex', alignItems: 'center' }}>
         Social Media <span style={{ marginLeft: '4px', lineHeight: 1 }}>&#x21FE;</span>
@@ -110,6 +126,19 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
       </div>, 
       onClick: () => handleThemeClick(new MouseEvent('click') as any)
     },
+  ];
+
+  const socialMenuItems = [
+    { 
+      children: 'Instagram',
+      href: 'https://instagram.com/heidiandkareem',
+      target: '_blank'
+    },
+  ];
+
+  const themeMenuItems = [
+    { children: isDebugMode ? 'Exit Debug Mode' : 'Debug Mode', onClick: handleDebugModeToggle },
+    { children: isDarkMode ? 'Light Mode' : 'Dark Mode', onClick: handleDarkModeToggle },
   ];
 
   const left = (
@@ -143,48 +172,53 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
   );
 
   return (
-    <div className={styles.navigationWrapper}>
-      <Navigation
-        left={left}
-        right={right}
-      />
-      {mainMenuOpen && (
-        <DropdownMenu
-          style={{
-            position: 'fixed',
-            top: mainMenuPosition.top,
-            left: mainMenuPosition.left,
-            zIndex: 1001
-          }}
-          items={mainMenuItems}
-          onClose={handleCloseAllMenus}
+    <>
+      <CirclingElements />
+      <DesktopIcons icons={[]} />
+      <div className={styles.navigationWrapper}>
+        <Navigation
+          left={left}
+          right={right}
         />
-      )}
-      {socialMenuOpen && (
-        <DropdownMenu
-          style={{
-            position: 'fixed',
-            top: socialMenuPosition.top,
-            left: socialMenuPosition.left,
-            zIndex: 1002
-          }}
-          items={socialMenuItems}
-          onClose={() => setSocialMenuOpen(false)}
-        />
-      )}
-      {themeMenuOpen && (
-        <DropdownMenu
-          style={{
-            position: 'fixed',
-            top: themeMenuPosition.top,
-            left: themeMenuPosition.left,
-            zIndex: 1002
-          }}
-          items={themeMenuItems}
-          onClose={() => setThemeMenuOpen(false)}
-        />
-      )}
-    </div>
+        {mainMenuOpen && (
+          <DropdownMenu
+            style={{
+              position: 'fixed',
+              top: mainMenuPosition.top,
+              left: mainMenuPosition.left,
+              zIndex: 1001
+            }}
+            items={mainMenuItems}
+            onClose={handleCloseAllMenus}
+          />
+        )}
+        {socialMenuOpen && (
+          <DropdownMenu
+            style={{
+              position: 'fixed',
+              top: socialMenuPosition.top,
+              left: socialMenuPosition.left,
+              zIndex: 1002
+            }}
+            items={socialMenuItems}
+            onClose={() => setSocialMenuOpen(false)}
+          />
+        )}
+        {themeMenuOpen && (
+          <DropdownMenu
+            style={{
+              position: 'fixed',
+              top: themeMenuPosition.top,
+              left: themeMenuPosition.left,
+              zIndex: 1002
+            }}
+            items={themeMenuItems}
+            onClose={() => setThemeMenuOpen(false)}
+          />
+        )}
+      </div>
+      {isScreensaverActive && <Screensaver onDismiss={handleScreensaverDismiss} />}
+    </>
   );
 };
 
