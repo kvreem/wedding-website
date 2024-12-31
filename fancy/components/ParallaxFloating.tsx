@@ -2,7 +2,7 @@ import React, { useState, useEffect, RefObject, createContext, useContext, useRe
 import { useAnimationFrame } from 'framer-motion';
 
 // Hook for mouse position
-const useMousePosition = (containerRef?: RefObject<HTMLDivElement>) => {
+const useMousePosition = (containerRef: RefObject<HTMLDivElement | null>) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
