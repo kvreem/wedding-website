@@ -3,6 +3,7 @@ const path = require('path');
 
 const nextConfig = {
   reactStrictMode: true,
+  transpilePackages: ['@components'],
   images: {
     remotePatterns: [],
     domains: [],
@@ -17,17 +18,22 @@ const nextConfig = {
     largePageDataBytes: 128 * 100000,
   },
   webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@components': path.join(__dirname, 'components'),
-      '@custom-components': path.join(__dirname, 'custom-components'),
-      '@pages': path.join(__dirname, 'pages'),
-      '@modules': path.join(__dirname, 'modules'),
-      '@system': path.join(__dirname, 'system'),
-      '@demos': path.join(__dirname, 'demos'),
-      '@common': path.join(__dirname, 'common'),
-      '@data': path.join(__dirname, 'data'),
-      '@root': __dirname,
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...config.resolve.alias,
+        '@components': path.join(__dirname, 'components'),
+        '@custom-components': path.join(__dirname, 'custom-components'),
+        '@pages': path.join(__dirname, 'pages'),
+        '@modules': path.join(__dirname, 'modules'),
+        '@system': path.join(__dirname, 'system'),
+        '@demos': path.join(__dirname, 'demos'),
+        '@common': path.join(__dirname, 'common'),
+        '@data': path.join(__dirname, 'data'),
+        '@root': __dirname,
+      },
+      extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+      modules: [path.resolve(__dirname), 'node_modules'],
     };
     
     config.module.rules.push({

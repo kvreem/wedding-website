@@ -15,7 +15,7 @@ const CHARACTER_WIDTH = 9.6;
 
 // TODO(jimmylee)
 // We need to figure out how to do ArrowLeft and ArrowRight to resize
-const SidebarLayout: React.FC<SidebarLayoutProps> = ({ defaultSidebarWidth = 20, children, sidebar }) => {
+export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ defaultSidebarWidth = 20, children, sidebar }) => {
   const [sidebarWidth, setSidebarWidth] = React.useState(defaultSidebarWidth);
   const handleRef = React.useRef<HTMLDivElement>(null);
 
