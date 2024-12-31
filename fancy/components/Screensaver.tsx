@@ -39,50 +39,30 @@ const Screensaver: React.FC<ScreensaverProps> = ({
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      // Stop event from bubbling
-      e.stopPropagation();
-      
-      // Only handle Enter and Space on desktop
-      if (!isMobile && (e.key === 'Enter' || e.key === ' ')) {
+      if (!isMobile && (e.code === 'Enter' || e.code === 'Space')) {
         e.preventDefault();
         onDismiss();
       }
     };
 
     const handleTouch = (e: TouchEvent) => {
-      // Only handle touch on mobile
       if (isMobile) {
         e.preventDefault();
-        e.stopPropagation();
         onDismiss();
       }
     };
 
-    // Prevent any mouse events from dismissing
-    const preventMouseEvents = (e: MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-    };
-
     // Event listeners for dismissal
-    window.addEventListener('keydown', handleKeyPress, true);
+    window.addEventListener('keydown', handleKeyPress);
     if (isMobile) {
-      window.addEventListener('touchstart', handleTouch, true);
+      window.addEventListener('touchstart', handleTouch);
     }
 
-    // Prevent mouse events from dismissing
-    window.addEventListener('click', preventMouseEvents, true);
-    window.addEventListener('mousedown', preventMouseEvents, true);
-    window.addEventListener('mouseup', preventMouseEvents, true);
-
     return () => {
-      window.removeEventListener('keydown', handleKeyPress, true);
+      window.removeEventListener('keydown', handleKeyPress);
       if (isMobile) {
-        window.removeEventListener('touchstart', handleTouch, true);
+        window.removeEventListener('touchstart', handleTouch);
       }
-      window.removeEventListener('click', preventMouseEvents, true);
-      window.removeEventListener('mousedown', preventMouseEvents, true);
-      window.removeEventListener('mouseup', preventMouseEvents, true);
     };
   }, [onDismiss, isMobile]);
 

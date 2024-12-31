@@ -42,10 +42,6 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
   const [isScreensaverActive, setIsScreensaverActive] = React.useState(false);
   const { isIdle, setIsIdle } = useIdleTimer(15000); // 15 seconds
 
-  React.useEffect(() => {
-    setIsScreensaverActive(isIdle);
-  }, [isIdle]);
-
   const tempFahrenheit = temperature ? Math.round((temperature * 9/5) + 32) : null;
   const degreeSymbol = '°';
 
@@ -100,13 +96,11 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
 
   const handleScreensaverToggle = () => {
     setIsScreensaverActive(true);
-    setIsIdle(true);
     handleCloseAllMenus();
   };
 
   const handleScreensaverDismiss = () => {
     setIsScreensaverActive(false);
-    setIsIdle(false);
   };
 
   const mainMenuItems = [
