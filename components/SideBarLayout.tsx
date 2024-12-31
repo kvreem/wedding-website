@@ -4,7 +4,7 @@ import styles from '@components/SidebarLayout.module.scss';
 
 import * as React from 'react';
 
-export interface SidebarLayoutProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue'> {
+interface SidebarLayoutProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue'> {
   children?: React.ReactNode;
   sidebar?: React.ReactNode;
   defaultSidebarWidth?: number;
@@ -57,6 +57,4 @@ const SidebarLayout: React.FC<SidebarLayoutProps> = ({ defaultSidebarWidth = 20,
   );
 };
 
-// Export the component both as named and default export
-export { SidebarLayout };
 export default SidebarLayout;
