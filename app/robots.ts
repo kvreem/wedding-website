@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/api/',
     },
-    sitemap: 'https://sacred.computer/sitemap.xml',
+    sitemap: 'https://heidiandkareem.com/sitemap.xml',
   };
 }
