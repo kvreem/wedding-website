@@ -6,11 +6,12 @@
   height: 100vh;
   overflow: hidden;
   pointer-events: none;
-  z-index: 1000;
+  z-index: 9999;
   background: transparent;
 
   & ~ * {
     visibility: hidden !important;
+    z-index: -1 !important;
   }
 }
 
