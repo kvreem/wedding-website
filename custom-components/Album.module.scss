@@ -1,8 +1,9 @@
 .root {
   position: fixed;
-  inset: 0;
+  left: 0;
+  right: 0;
   top: 4rem; // nav height
-  bottom: 12rem; // Add space for desktop icons
+  height: calc(100dvh - 16rem); // Use dynamic viewport height and account for top + bottom space
   display: flex;
   overflow-y: auto;
   padding: 1.5rem;
