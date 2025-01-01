@@ -78,6 +78,9 @@ function Input({ caretChars, isBlink = true, label, placeholder, onChange, type,
       lastFocusDirectionRef.current = 'down';
       const nextFocusable = Utilities.findNextFocusable(document.activeElement, 'next');
       nextFocusable?.focus();
+    } else if (e.key === ' ' || e.code === 'Space') {
+      // Let the space key event propagate to trigger the onChange
+      e.stopPropagation();
     }
   };
 
