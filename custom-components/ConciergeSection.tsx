@@ -20,7 +20,7 @@ const ConciergeSection: React.FC<ConciergeSectionProps> = ({ onClose }) => {
           </div>
           <Card title="CONTACT">
             <div className={styles.contactContainer}>
-              <p>For questions and assistance please email:</p>
+              <p>For questions and assistance please email</p>
               <a href="mailto:concierge@heidiandkareem.com" className={styles.email}>
                 concierge@heidiandkareem.com
               </a>
@@ -36,7 +36,7 @@ const ConciergeSection: React.FC<ConciergeSectionProps> = ({ onClose }) => {
           <FloatingElement depth={2} className="absolute top-[20%] right-[20%] w-[200px] h-[200px]">
             <Image src="/images/floating/2.JPEG" alt="Floating image 2" className="rounded-lg object-cover" fill priority />
           </FloatingElement>
-          <FloatingElement depth={1} className="absolute bottom-[25%] left-[25%] w-[300px] h-[300px]">
+          <FloatingElement depth={1} className="absolute bottom-[20%] right-[15%] w-[300px] h-[300px]">
             <Image src="/images/floating/3.JPEG" alt="Floating image 3" className="rounded-lg object-cover" fill priority />
           </FloatingElement>
         </Floating>
