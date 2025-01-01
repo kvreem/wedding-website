@@ -41,7 +41,7 @@ const DesktopIcons: React.FC<DesktopIconsProps> = ({ icons }) => {
               className={styles.iconImage}
             />
           </div>
-          <span className={styles.iconLabel}>{icon.name}</span>
+          <span className={styles.iconLabel} data-icon={icon.name}>{icon.name}</span>
         </div>
       ))}
     </div>

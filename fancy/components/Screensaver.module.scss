@@ -12,10 +12,6 @@
   & ~ * {
     visibility: hidden !important;
   }
-
-  & ~ .navigationWrapper {
-    visibility: visible !important;
-  }
 }
 
 .imageStack {

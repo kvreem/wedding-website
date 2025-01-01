@@ -5,10 +5,11 @@ import BarLoader from '../components/BarLoader';
 import DebugGrid, { toggleDebugGrid } from '../components/DebugGrid';
 import ActionButton from '../components/ActionButton';
 import Badge from '../components/Badge';
-import CirclingElements from '../custom-components/CirclingElements';
 import Image from 'next/image';
 import styles from './index.module.scss';
 import Card from '../components/Card';
+import CardDouble from '../components/CardDouble';
+import Message from '../components/Message';
 import RSVPForm from '../custom-components/RSVPForm';
 import Story from '../custom-components/Story';
 import BarProgress from '../components/BarProgress';
@@ -46,6 +47,7 @@ export default function HomePage() {
   const [showTravel, setShowTravel] = useState(false);
   const [showFAQ, setShowFAQ] = useState(false);
   const [showConcierge, setShowConcierge] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false);
   const [playlistLoading, setPlaylistLoading] = useState(true);
   const [storyHasPlayed, setStoryHasPlayed] = useState(false);
   const [playlistProgress, setPlaylistProgress] = useState(0);
@@ -68,6 +70,7 @@ export default function HomePage() {
     if (section === 'travel') setShowTravel(true);
     if (section === 'faq') setShowFAQ(true);
     if (section === 'concierge') setShowConcierge(true);
+    if (section === 'welcome') setShowWelcome(true);
   };
 
   const handlePlaylistClick = () => {
@@ -116,6 +119,11 @@ export default function HomePage() {
       name: 'Travel', 
       icon: 'travel.ico',
       onClick: () => handleMenuClick('travel')
+    },
+    { 
+      name: 'Welcome.txt', 
+      icon: 'welcome.ico',
+      onClick: () => handleMenuClick('welcome')
     },
     { 
       name: 'Playlist', 
@@ -182,6 +190,7 @@ export default function HomePage() {
     setShowTravel(false);
     setShowFAQ(false);
     setShowConcierge(false);
+    setShowWelcome(false);
     setSelectedImage(null);
   };
 
@@ -217,6 +226,39 @@ export default function HomePage() {
               <FAQSection onClose={resetAllSections} />
             ) : showConcierge ? (
               <ConciergeSection onClose={resetAllSections} />
+            ) : showWelcome ? (
+              <div className="w-[500px] max-w-[90vw] mx-auto mt-20">
+                <div className="relative">
+                  <div className="absolute top-0 right-0 -mt-4 -mr-4">
+                    <ActionButton onClick={resetAllSections}>
+                      X
+                    </ActionButton>
+                  </div>
+                  <CardDouble title="Welcome.txt">
+                    <div className="flex flex-col items-center space-y-4 p-4" style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+                      <Image
+                        src="/images/floating/1.JPEG"
+                        alt="Heidi and Kareem"
+                        width={300}
+                        height={375}
+                        className="rounded-lg"
+                        priority
+                      />
+                      <Message>
+                        Dear Guests, 
+                        <br />
+                        <br />
+                        Thank you for sharing in this joyous time with us. Your love and support mean the world, and we can't wait for you to experience the magic of Egypt together. We look forward to creating lifelong memories with all of you.
+                        <br />
+                        <br />
+                        With love and gratitude,
+                        <br />
+                        Heidi & Kareem
+                      </Message>
+                    </div>
+                  </CardDouble>
+                </div>
+              </div>
             ) : showPlaylist ? (
               <div className="fixed inset-0 flex items-center justify-center overflow-hidden">
                 <div className="w-full max-w-[90vw] md:max-w-[600px] px-4">
@@ -294,58 +336,6 @@ export default function HomePage() {
               <>
                 <div className="fixed inset-0 flex items-center justify-center">
                   <div className="relative w-full h-full flex flex-col items-center justify-center">
-                    <CirclingElements radius={150} duration={20}>
-                      <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
-                        <Image 
-                          src={Image1}
-                          alt="Wedding Image 1" 
-                          className="rounded-lg object-cover"
-                          fill
-                          sizes="(max-width: 195px) 19.5vw, 195px"
-                          priority
-                        />
-                      </div>
-                      <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
-                        <Image 
-                          src={Image2}
-                          alt="Wedding Image 2" 
-                          className="rounded-lg object-cover"
-                          fill
-                          sizes="(max-width: 195px) 19.5vw, 195px"
-                          priority
-                        />
-                      </div>
-                      <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
-                        <Image 
-                          src={Image3}
-                          alt="Wedding Image 3" 
-                          className="rounded-lg object-cover"
-                          fill
-                          sizes="(max-width: 195px) 19.5vw, 195px"
-                          priority
-                        />
-                      </div>
-                      <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
-                        <Image 
-                          src={Image4}
-                          alt="Wedding Image 4" 
-                          className="rounded-lg object-cover"
-                          fill
-                          sizes="(max-width: 195px) 19.5vw, 195px"
-                          priority
-                        />
-                      </div>
-                      <div className="w-[min(195px,19.5vw)] h-[min(195px,19.5vw)]">
-                        <Image 
-                          src={Image5}
-                          alt="Wedding Image 5" 
-                          className="rounded-lg object-cover"
-                          fill
-                          sizes="(max-width: 195px) 19.5vw, 195px"
-                          priority
-                        />
-                      </div>
-                    </CirclingElements>
                     <DesktopIcons icons={desktopIcons} />
                   </div>
                 </div>

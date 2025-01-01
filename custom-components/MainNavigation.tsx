@@ -40,7 +40,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
   const [isDarkMode, setIsDarkMode] = React.useState(false);
   const [isDebugMode, setIsDebugMode] = React.useState(false);
   const [isScreensaverActive, setIsScreensaverActive] = React.useState(false);
-  const { isIdle } = useIdleTimer(15000); // 15 seconds for testing
+  const { isIdle } = useIdleTimer(30000); // 30 seconds
 
   // Only activate screensaver on idle, don't deactivate on activity
   React.useEffect(() => {
