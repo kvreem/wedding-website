@@ -22,6 +22,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({ style, name, value, selected 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     switch (event.key) {
       case 'Enter':
+      case ' ':
         event.preventDefault();
         onSelect?.(value);
         break;
@@ -41,8 +42,10 @@ const RadioButton: React.FC<RadioButtonProps> = ({ style, name, value, selected 
     }
   };
 
-  const handleChange = () => {
-    onSelect?.(value);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.checked) {
+      onSelect?.(value);
+    }
   };
 
   return (
@@ -53,7 +56,18 @@ const RadioButton: React.FC<RadioButtonProps> = ({ style, name, value, selected 
       })}
       style={style}
     >
-      <input className={styles.input} id={radioId} type="radio" name={name} value={value} checked={selected} onFocus={handleFocus} onBlur={handleBlur} onKeyDown={handleKeyDown} onChange={handleChange} />
+      <input 
+        className={styles.input} 
+        id={radioId} 
+        type="radio" 
+        name={name} 
+        value={value} 
+        checked={selected} 
+        onFocus={handleFocus} 
+        onBlur={handleBlur} 
+        onKeyDown={handleKeyDown} 
+        onChange={handleChange} 
+      />
       <div className={styles.relative}>
         <label className={styles.figure} htmlFor={radioId}>
           {selected ? <span aria-hidden="true" className={styles.dot} /> : null}

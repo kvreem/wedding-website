@@ -1,5 +1,6 @@
 import React, { useState, useEffect, RefObject, createContext, useContext, useRef, useCallback } from 'react';
 import { useAnimationFrame } from 'framer-motion';
+import styles from './ParallaxFloating.module.scss';
 
 // Hook for mouse position
 const useMousePosition = (containerRef: RefObject<HTMLDivElement | null>) => {
@@ -121,7 +122,7 @@ export const Floating: React.FC<FloatingProps> = ({
 
   return (
     <FloatingContext.Provider value={{ registerElement, unregisterElement }}>
-      <div ref={containerRef} className={className}>
+      <div ref={containerRef} className={`${styles.floating} ${className}`}>
         {children}
       </div>
     </FloatingContext.Provider>

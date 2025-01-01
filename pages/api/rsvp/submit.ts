@@ -68,10 +68,10 @@ export default async function submitRSVP(req, res) {
         }
       },
       'Email': {
-        email
+        email: email || null
       },
       'Phone': {
-        phone_number: phone
+        phone_number: phone || null
       },
       'Dietary Preferences': {
         multi_select: [{

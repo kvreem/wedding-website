@@ -8,9 +8,10 @@ interface RadioButtonGroupProps {
   options: { value: string; label: string }[];
   defaultValue?: string;
   onValueChange?: (value: string) => void;
+  name?: string;
 }
 
-const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({ options, defaultValue = '', onValueChange }) => {
+const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({ options, defaultValue = '', onValueChange, name = 'radio-group' }) => {
   const [selectedValue, setSelectedValue] = React.useState<string>(defaultValue);
 
   const handleSelect = (value: string) => {
@@ -23,7 +24,7 @@ const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({ options, defaultVal
   return (
     <>
       {options.map((option) => (
-        <RadioButton key={option.value} name="example" value={option.value} selected={selectedValue === option.value} onSelect={handleSelect}>
+        <RadioButton key={option.value} name={name} value={option.value} selected={selectedValue === option.value} onSelect={handleSelect}>
           {option.label}
         </RadioButton>
       ))}

@@ -8,6 +8,7 @@ import RadioButtonGroup from '@components/RadioButtonGroup';
 import { Floating, FloatingElement } from '../fancy/components/ParallaxFloating';
 import Image from 'next/image';
 import styles from './RSVPForm.module.scss';
+import Dialog from '@components/Dialog';
 
 interface RSVPFormProps {
   onClose: () => void;
@@ -26,6 +27,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
   const [isSubmitted, setIsSubmitted] = React.useState(false);
   const [attending, setAttending] = React.useState('yes');
   const [submitting, setSubmitting] = React.useState(false);
+  const [showConfirmDialog, setShowConfirmDialog] = React.useState(false);
 
   const handleNameSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,9 +56,9 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const submitRSVP = async () => {
     setSubmitting(true);
+    setError('');
     
     try {
       const response = await fetch('/api/rsvp/submit', {
@@ -65,12 +67,12 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name,
+          name: name.toLowerCase(),
           email,
           phone,
           attending: attending === 'yes',
           dietaryPreference,
-          ...(hasPlusOne && {
+          ...(hasPlusOne && guestName && {
             guestName,
             guestDietaryPreference,
           }),
@@ -80,16 +82,29 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit RSVP');
+        setError(data.error || 'Failed to submit RSVP');
+        return;
       }
 
       setIsSubmitted(true);
+      setShowConfirmDialog(false);
     } catch (error) {
       console.error('Error submitting RSVP:', error);
       setError('Failed to submit RSVP. Please try again.');
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (attending === 'no' && !showConfirmDialog) {
+      setShowConfirmDialog(true);
+      return;
+    }
+    
+    await submitRSVP();
   };
 
   const dietaryOptions = [
@@ -116,19 +131,6 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
               </div>
             </Card>
           </div>
-        </div>
-        <div className="fixed inset-0 -z-10 pointer-events-none">
-          <Floating sensitivity={0.03} easingFactor={0.02} className="relative w-full h-full">
-            <FloatingElement depth={1.5} className="absolute top-[10%] left-[15%] w-[250px] h-[250px]">
-              <Image src="/images/floating/4.JPG" alt="Floating image 4" className="rounded-lg object-cover" fill priority />
-            </FloatingElement>
-            <FloatingElement depth={2} className="absolute top-[20%] right-[20%] w-[200px] h-[200px]">
-              <Image src="/images/floating/5.JPG" alt="Floating image 5" className="rounded-lg object-cover" fill priority />
-            </FloatingElement>
-            <FloatingElement depth={1} className="absolute bottom-[25%] left-[25%] w-[300px] h-[300px]">
-              <Image src="/images/floating/6.JPG" alt="Floating image 6" className="rounded-lg object-cover" fill priority />
-            </FloatingElement>
-          </Floating>
         </div>
       </div>
     );
@@ -198,6 +200,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
                 <div>
                   <h3 className="mb-2 text-sm font-medium text-gray-700">Will you be joining us?</h3>
                   <RadioButtonGroup
+                    name="attending"
                     defaultValue={attending}
                     options={[
                       { value: 'yes', label: 'Yes, I can make it' },
@@ -207,56 +210,62 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
                   />
                 </div>
 
-                <Input
-                  label="EMAIL"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  type="email"
-                  required
-                />
-
-                <Input
-                  label="PHONE"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Enter your phone number"
-                  type="tel"
-                  required
-                />
-
-                <div>
-                  <h3 className="mb-2 text-sm font-medium text-gray-700">Your Dietary Preferences</h3>
-                  <RadioButtonGroup
-                    defaultValue={dietaryPreference}
-                    options={dietaryOptions}
-                    onValueChange={setDietaryPreference}
-                  />
-                </div>
-
-                {hasPlusOne && (
+                {attending === 'yes' && (
                   <>
                     <Input
-                      label="GUEST NAME (+1)"
-                      value={guestName}
-                      onChange={(e) => setGuestName(e.target.value)}
-                      placeholder="Enter your guest's name"
+                      label="EMAIL"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter your email"
+                      type="email"
                       required
                     />
+
+                    <Input
+                      label="PHONE"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="Enter your phone number"
+                      type="tel"
+                      required
+                    />
+
                     <div>
-                      <h3 className="mb-2 text-sm font-medium text-gray-700">Guest's Dietary Preferences</h3>
+                      <h3 className="mb-2 text-sm font-medium text-gray-700">Your Dietary Preferences</h3>
                       <RadioButtonGroup
-                        defaultValue={guestDietaryPreference}
+                        name="primary-guest-dietary"
+                        defaultValue={dietaryPreference}
                         options={dietaryOptions}
-                        onValueChange={setGuestDietaryPreference}
+                        onValueChange={setDietaryPreference}
                       />
                     </div>
+
+                    {hasPlusOne && (
+                      <>
+                        <Input
+                          label="GUEST NAME (+1)"
+                          value={guestName}
+                          onChange={(e) => setGuestName(e.target.value)}
+                          placeholder="Enter your guest's name"
+                          required
+                        />
+                        <div>
+                          <h3 className="mb-2 text-sm font-medium text-gray-700">Guest's Dietary Preferences</h3>
+                          <RadioButtonGroup
+                            name="plus-one-dietary"
+                            defaultValue={guestDietaryPreference}
+                            options={dietaryOptions}
+                            onValueChange={setGuestDietaryPreference}
+                          />
+                        </div>
+                      </>
+                    )}
                   </>
                 )}
               </div>
 
               <div className="flex justify-end items-center gap-4 pt-4">
-                <ActionButton onClick={handleSubmit}>
+                <ActionButton type="submit">
                   Confirm RSVP
                 </ActionButton>
               </div>
@@ -264,19 +273,22 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
           </Card>
         </div>
       </div>
-      <div className="fixed inset-0 -z-10 pointer-events-none">
-        <Floating sensitivity={0.03} easingFactor={0.02} className="relative w-full h-full">
-          <FloatingElement depth={1.5} className="absolute top-[10%] left-[15%] w-[250px] h-[250px]">
-            <Image src="/images/floating/4.JPG" alt="Floating image 4" className="rounded-lg object-cover" fill priority />
-          </FloatingElement>
-          <FloatingElement depth={2} className="absolute top-[20%] right-[20%] w-[200px] h-[200px]">
-            <Image src="/images/floating/5.JPG" alt="Floating image 5" className="rounded-lg object-cover" fill priority />
-          </FloatingElement>
-          <FloatingElement depth={1} className="absolute bottom-[25%] left-[25%] w-[300px] h-[300px]">
-            <Image src="/images/floating/6.JPG" alt="Floating image 6" className="rounded-lg object-cover" fill priority />
-          </FloatingElement>
-        </Floating>
-      </div>
+      {showConfirmDialog && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <Dialog
+            title="ARE YOU SURE?"
+            onConfirm={submitRSVP}
+            onCancel={() => {
+              setShowConfirmDialog(false);
+              setAttending('yes');
+            }}
+            confirmText="YES"
+            cancelText="CANCEL"
+          >
+            Are you sure you want to RSVP No? Don't break our little ♥'s 
+          </Dialog>
+        </div>
+      )}
     </div>
   );
 };
