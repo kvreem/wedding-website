@@ -58,6 +58,17 @@ const CustomLoader: React.FC<CustomLoaderProps> = ({ onLoadingComplete }) => {
   const [showAsciiArt, setShowAsciiArt] = React.useState(false);
   const [countdown, setCountdown] = React.useState(5);
   const [showPrompt, setShowPrompt] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   React.useEffect(() => {
     const stepDuration = 1500; // 1.5 seconds per step
@@ -104,15 +115,23 @@ const CustomLoader: React.FC<CustomLoaderProps> = ({ onLoadingComplete }) => {
   React.useEffect(() => {
     if (!showPrompt) return;
 
-    const handleKeyPress = (event: KeyboardEvent) => {
-      if (event.code === 'Space') {
-        onLoadingComplete?.();
-      }
+    const handleInteraction = (event: Event) => {
+      event.preventDefault();
+      onLoadingComplete?.();
     };
 
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [showPrompt, onLoadingComplete]);
+    if (isMobile) {
+      window.addEventListener('touchstart', handleInteraction);
+      return () => window.removeEventListener('touchstart', handleInteraction);
+    } else {
+      window.addEventListener('keydown', (event: KeyboardEvent) => {
+        if (event.code === 'Space') {
+          handleInteraction(event);
+        }
+      });
+      return () => window.removeEventListener('keydown', handleInteraction);
+    }
+  }, [showPrompt, onLoadingComplete, isMobile]);
 
   React.useEffect(() => {
     if (countdown === 0) {
@@ -138,7 +157,7 @@ const CustomLoader: React.FC<CustomLoaderProps> = ({ onLoadingComplete }) => {
           </div>
           {showPrompt && (
             <div className={styles.prompt}>
-              PRESS SPACE TO ENTER [{countdown}]
+              {isMobile ? `TAP TO ENTER [${countdown}]` : `PRESS SPACE TO ENTER [${countdown}]`}
               <br />
               BY ENTERING YOU AGREE TO RSVP BY 03-01-2025 
             </div>
