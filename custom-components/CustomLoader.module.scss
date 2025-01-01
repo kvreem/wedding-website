@@ -28,7 +28,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  font-size: calc(var(--font-size) * 1.2);
+  font-size: 16px;
   color: var(--theme-foreground);
   line-height: calc(var(--theme-line-height-base) * 1rem);
   animation: slideIn 0.3s ease-out forwards;

@@ -26,6 +26,7 @@ import Image3 from '../public/images/3.jpg';
 import Image4 from '../public/images/4.jpg';
 import Image5 from '../public/images/5.jpg';
 import DesktopIcons from '../custom-components/DesktopIcons';
+import Album from '../custom-components/Album';
 
 interface WeatherData {
   hourly: {
@@ -48,6 +49,8 @@ export default function HomePage() {
   const [showFAQ, setShowFAQ] = useState(false);
   const [showConcierge, setShowConcierge] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
+  const [showAlbum, setShowAlbum] = useState(true);
+  const [albumFirstClose, setAlbumFirstClose] = useState(false);
   const [playlistLoading, setPlaylistLoading] = useState(true);
   const [storyHasPlayed, setStoryHasPlayed] = useState(false);
   const [playlistProgress, setPlaylistProgress] = useState(0);
@@ -64,13 +67,24 @@ export default function HomePage() {
   };
 
   const handleMenuClick = (section?: string) => {
-    resetAllSections();
+    setShowRSVP(false);
+    setShowStory(false);
+    setShowPlaylist(false);
+    setShowVenue(false);
+    setShowStays(false);
+    setShowTravel(false);
+    setShowFAQ(false);
+    setShowConcierge(false);
+    setShowWelcome(false);
+    setSelectedImage(null);
+    
     if (section === 'venue') setShowVenue(true);
     if (section === 'stays') setShowStays(true);
     if (section === 'travel') setShowTravel(true);
     if (section === 'faq') setShowFAQ(true);
     if (section === 'concierge') setShowConcierge(true);
     if (section === 'welcome') setShowWelcome(true);
+    if (section === 'album') setShowAlbum(true);
   };
 
   const handlePlaylistClick = () => {
@@ -197,6 +211,11 @@ export default function HomePage() {
   const handleAlbumClick = (imageName: string) => {
     resetAllSections();
     setSelectedImage(imageName);
+  };
+
+  const handleAlbumClose = () => {
+    setShowAlbum(false);
+    setAlbumFirstClose(true);
   };
 
   return (
@@ -337,6 +356,7 @@ export default function HomePage() {
                 <div className="fixed inset-0 flex items-center justify-center">
                   <div className="relative w-full h-full flex flex-col items-center justify-center">
                     <DesktopIcons icons={desktopIcons} />
+                    {(!albumFirstClose || showAlbum) && <Album onClose={handleAlbumClose} />}
                   </div>
                 </div>
               </>
