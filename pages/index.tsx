@@ -271,7 +271,7 @@ export default function HomePage() {
                     <Card title="PLAYLIST">
                       <div className="relative w-full">
                         {playlistLoading && (
-                          <div className="absolute inset-0 flex justify-center items-center bg-white">
+                          <div className="absolute inset-0 flex justify-center items-center">
                             <div className="w-[352px]">
                               <div className={styles.playlistLoader}>
                                 <div className={styles.progressText}>

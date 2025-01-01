@@ -172,7 +172,7 @@
   .progressText {
     margin-bottom: 1rem;
     font-size: 1rem;
-    color: var(--theme-foreground);
+    color: var(--theme-text);
   }
   
   .bar {
@@ -184,7 +184,7 @@
       font-family: monospace;
       animation: loadingAnimation 2s infinite;
       white-space: nowrap;
-      color: var(--theme-foreground);
+      color: var(--theme-text);
     }
   }
 }
