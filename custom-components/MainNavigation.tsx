@@ -180,6 +180,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
         <Navigation
           left={left}
           right={right}
+          logo="✶"
         />
         {mainMenuOpen && (
           <DropdownMenu
