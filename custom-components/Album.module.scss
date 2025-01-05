@@ -51,4 +51,24 @@
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   padding: 1rem;
+
+  button {
+    &:hover {
+      background: var(--theme-focused-foreground);
+    }
+
+    &:not(:hover):not(:active) {
+      background: var(--theme-button);
+    }
+
+    &:active {
+      background: var(--theme-focused-foreground);
+    }
+
+    @media (hover: none) {
+      &:not(:active) {
+        background: var(--theme-button);
+      }
+    }
+  }
 } 

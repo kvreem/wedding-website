@@ -27,6 +27,7 @@ import Image4 from '../public/images/4.jpg';
 import Image5 from '../public/images/5.jpg';
 import DesktopIcons from '../custom-components/DesktopIcons';
 import Album from '../custom-components/Album';
+import { LanguageProvider } from '../translations/LanguageContext';
 
 interface WeatherData {
   hourly: {
@@ -97,52 +98,62 @@ export default function HomePage() {
     { 
       name: 'Album', 
       icon: 'album.ico',
-      onClick: () => handleMenuClick('album')
+      onClick: () => handleMenuClick('album'),
+      translationKey: 'album'
     },
     { 
       name: 'Concierge', 
       icon: 'concierge.ico',
-      onClick: () => handleMenuClick('concierge')
+      onClick: () => handleMenuClick('concierge'),
+      translationKey: 'concierge'
     },
     { 
       name: 'FAQ',
       icon: 'faq.ico',
-      onClick: () => handleMenuClick('faq')
+      onClick: () => handleMenuClick('faq'),
+      translationKey: 'faq'
     },
     { 
       name: 'Programme', 
       icon: 'programme.ico',
-      onClick: () => handleMenuClick('venue')
+      onClick: () => handleMenuClick('venue'),
+      translationKey: 'programme'
     },
     { 
       name: 'RSVP', 
       icon: 'rsvp.ico',
-      onClick: handleRSVPClick
+      onClick: handleRSVPClick,
+      translationKey: 'rsvp'
     },
     { 
       name: 'Stays', 
       icon: 'stays.ico',
-      onClick: () => handleMenuClick('stays')
+      onClick: () => handleMenuClick('stays'),
+      translationKey: 'stays'
     },
     { 
       name: 'Story', 
       icon: 'story.ico',
-      onClick: handleStoryClick
+      onClick: handleStoryClick,
+      translationKey: 'story'
     },
     { 
       name: 'Travel', 
       icon: 'travel.ico',
-      onClick: () => handleMenuClick('travel')
+      onClick: () => handleMenuClick('travel'),
+      translationKey: 'travel'
     },
     { 
       name: 'Welcome.txt', 
       icon: 'welcome.ico',
-      onClick: () => handleMenuClick('welcome')
+      onClick: () => handleMenuClick('welcome'),
+      translationKey: 'welcome'
     },
     { 
       name: 'Playlist', 
       icon: 'playlist.ico',
-      onClick: handlePlaylistClick
+      onClick: handlePlaylistClick,
+      translationKey: 'playlist'
     },
   ];
 
@@ -219,160 +230,162 @@ export default function HomePage() {
   };
 
   return (
-    <div className={styles.container}>
-      <DebugGrid />
-      {!loading && temperature && (
-        <>
-          <MainNavigation 
-            temperature={temperature}
-          />
-          <div className={styles.content}>
-            {showRSVP ? (
-              <RSVPForm onClose={resetAllSections} />
-            ) : showStory ? (
-              <Story 
-                onClose={resetAllSections}
-                hasPlayed={storyHasPlayed}
-                onAutoPlayComplete={() => setStoryHasPlayed(true)}
-              />
-            ) : showVenue ? (
-              <VenueSection onClose={resetAllSections} />
-            ) : showStays ? (
-              <StaysSection onClose={resetAllSections} />
-            ) : showTravel ? (
-              <TravelSection onClose={resetAllSections} />
-            ) : showFAQ ? (
-              <FAQSection onClose={resetAllSections} />
-            ) : showConcierge ? (
-              <ConciergeSection onClose={resetAllSections} />
-            ) : showWelcome ? (
-              <div className="w-[500px] max-w-[90vw] mx-auto mt-20">
-                <div className="relative">
-                  <div className="absolute top-0 right-0 -mt-4 -mr-4">
-                    <ActionButton onClick={resetAllSections}>
-                      X
-                    </ActionButton>
-                  </div>
-                  <CardDouble title="Welcome.txt">
-                    <div className="flex flex-col items-center space-y-4 p-4" style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
-                      <Image
-                        src="/images/floating/1.JPEG"
-                        alt="Heidi and Kareem"
-                        width={300}
-                        height={375}
-                        className="rounded-lg"
-                        priority
-                      />
-                      <Message>
-                        Dear Guests, 
-                        <br />
-                        <br />
-                        Thank you for sharing in this joyous time with us. Your love and support mean the world, and we can't wait for you to experience the magic of Egypt together. We look forward to creating lifelong memories with all of you.
-                        <br />
-                        <br />
-                        With love and gratitude,
-                        <br />
-                        Heidi & Kareem
-                      </Message>
-                    </div>
-                  </CardDouble>
-                </div>
-              </div>
-            ) : showPlaylist ? (
-              <div className="fixed inset-0 flex items-center justify-center overflow-hidden">
-                <div className="w-full max-w-[90vw] md:max-w-[600px] px-4">
+    <LanguageProvider>
+      <div className={styles.container}>
+        <DebugGrid />
+        {!loading && temperature && (
+          <>
+            <MainNavigation 
+              temperature={temperature}
+            />
+            <div className={styles.content}>
+              {showRSVP ? (
+                <RSVPForm onClose={resetAllSections} />
+              ) : showStory ? (
+                <Story 
+                  onClose={resetAllSections}
+                  hasPlayed={storyHasPlayed}
+                  onAutoPlayComplete={() => setStoryHasPlayed(true)}
+                />
+              ) : showVenue ? (
+                <VenueSection onClose={resetAllSections} />
+              ) : showStays ? (
+                <StaysSection onClose={resetAllSections} />
+              ) : showTravel ? (
+                <TravelSection onClose={resetAllSections} />
+              ) : showFAQ ? (
+                <FAQSection onClose={resetAllSections} />
+              ) : showConcierge ? (
+                <ConciergeSection onClose={resetAllSections} />
+              ) : showWelcome ? (
+                <div className="w-[500px] max-w-[90vw] mx-auto mt-20">
                   <div className="relative">
-                    <div className="absolute top-0 right-0 -mt-4 -mr-4 z-50">
+                    <div className="absolute top-0 right-0 -mt-4 -mr-4">
                       <ActionButton onClick={resetAllSections}>
                         X
                       </ActionButton>
                     </div>
-                    <Card title="PLAYLIST">
-                      <div className="relative w-full">
-                        {playlistLoading && (
-                          <div className="absolute inset-0 flex justify-center items-center">
-                            <div className="w-[352px]">
-                              <div className={styles.playlistLoader}>
-                                <div className={styles.progressText}>
-                                  Loading tunes...
-                                </div>
-                                <div className={styles.bar}>
-                                  <div className={styles.barContent}>
-                                    {'█'.repeat(Math.floor(playlistProgress / 2)) + '░'.repeat(50 - Math.floor(playlistProgress / 2))}
+                    <CardDouble title="Welcome.txt">
+                      <div className="flex flex-col items-center space-y-4 p-4" style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+                        <Image
+                          src="/images/floating/1.JPEG"
+                          alt="Heidi and Kareem"
+                          width={300}
+                          height={375}
+                          className="rounded-lg"
+                          priority
+                        />
+                        <Message>
+                          Dear Guests, 
+                          <br />
+                          <br />
+                          Thank you for sharing in this joyous time with us. Your love and support mean the world, and we can't wait for you to experience the magic of Egypt together. We look forward to creating lifelong memories with all of you.
+                          <br />
+                          <br />
+                          With love and gratitude,
+                          <br />
+                          Heidi & Kareem
+                        </Message>
+                      </div>
+                    </CardDouble>
+                  </div>
+                </div>
+              ) : showPlaylist ? (
+                <div className="fixed inset-0 flex items-center justify-center overflow-hidden">
+                  <div className="w-full max-w-[90vw] md:max-w-[600px] px-4">
+                    <div className="relative">
+                      <div className="absolute top-0 right-0 -mt-4 -mr-4 z-50">
+                        <ActionButton onClick={resetAllSections}>
+                          X
+                        </ActionButton>
+                      </div>
+                      <Card title="PLAYLIST">
+                        <div className="relative w-full">
+                          {playlistLoading && (
+                            <div className="absolute inset-0 flex justify-center items-center">
+                              <div className="w-[352px]">
+                                <div className={styles.playlistLoader}>
+                                  <div className={styles.progressText}>
+                                    Loading tunes...
+                                  </div>
+                                  <div className={styles.bar}>
+                                    <div className={styles.barContent}>
+                                      {'█'.repeat(Math.floor(playlistProgress / 2)) + '░'.repeat(50 - Math.floor(playlistProgress / 2))}
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        )}
-                        <iframe 
-                          className={`w-full transition-opacity duration-300 ${playlistLoading ? 'opacity-0' : 'opacity-100'}`}
-                          style={{
-                            borderRadius: "12px",
-                          }} 
-                          src="https://open.spotify.com/embed/playlist/1CoRxdb5G1QYu07Ztn4iOu?utm_source=generator" 
-                          width="100%" 
-                          height="352" 
-                          frameBorder="0" 
-                          allowFullScreen 
-                          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                          loading="lazy"
-                          onLoad={() => {}}
+                          )}
+                          <iframe 
+                            className={`w-full transition-opacity duration-300 ${playlistLoading ? 'opacity-0' : 'opacity-100'}`}
+                            style={{
+                              borderRadius: "12px",
+                            }} 
+                            src="https://open.spotify.com/embed/playlist/1CoRxdb5G1QYu07Ztn4iOu?utm_source=generator" 
+                            width="100%" 
+                            height="352" 
+                            frameBorder="0" 
+                            allowFullScreen 
+                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                            loading="lazy"
+                            onLoad={() => {}}
+                          />
+                        </div>
+                      </Card>
+                    </div>
+                  </div>
+                </div>
+              ) : selectedImage ? (
+                <div className={styles.selectedImage}>
+                  <div className="relative">
+                    <div className="absolute top-0 right-0 -mt-4 -mr-4 z-50">
+                      <ActionButton 
+                        onClick={resetAllSections}
+                      >
+                        X
+                      </ActionButton>
+                    </div>
+                    <Card title={selectedImage.toUpperCase()}>
+                      <div className={styles.imageContainer}>
+                        <Image
+                          src={`/images/album/${selectedImage}`}
+                          alt={`Album image - ${selectedImage}`}
+                          width={1200}
+                          height={800}
+                          className="w-auto h-auto"
+                          priority
+                          onError={(e) => {
+                            console.error('Image failed to load:', `/images/album/${selectedImage}`);
+                          }}
                         />
                       </div>
                     </Card>
                   </div>
                 </div>
-              </div>
-            ) : selectedImage ? (
-              <div className={styles.selectedImage}>
-                <div className="relative">
-                  <div className="absolute top-0 right-0 -mt-4 -mr-4 z-50">
-                    <ActionButton 
-                      onClick={resetAllSections}
-                    >
-                      X
-                    </ActionButton>
-                  </div>
-                  <Card title={selectedImage.toUpperCase()}>
-                    <div className={styles.imageContainer}>
-                      <Image
-                        src={`/images/album/${selectedImage}`}
-                        alt={`Album image - ${selectedImage}`}
-                        width={1200}
-                        height={800}
-                        className="w-auto h-auto"
-                        priority
-                        onError={(e) => {
-                          console.error('Image failed to load:', `/images/album/${selectedImage}`);
-                        }}
-                      />
+              ) : (
+                <>
+                  <div className="fixed inset-0 flex items-center justify-center">
+                    <div className="relative w-full h-full flex flex-col items-center justify-center">
+                      <DesktopIcons icons={desktopIcons} />
+                      {(!albumFirstClose || showAlbum) && <Album onClose={handleAlbumClose} />}
                     </div>
-                  </Card>
-                </div>
-              </div>
-            ) : (
-              <>
-                <div className="fixed inset-0 flex items-center justify-center">
-                  <div className="relative w-full h-full flex flex-col items-center justify-center">
-                    <DesktopIcons icons={desktopIcons} />
-                    {(!albumFirstClose || showAlbum) && <Album onClose={handleAlbumClose} />}
                   </div>
-                </div>
-              </>
-            )}
-          </div>
+                </>
+              )}
+            </div>
 
-          <div className="fixed bottom-5 left-5 hidden md:block">
-            <Badge>Made with &#10084; in NYC</Badge>
+            <div className="fixed bottom-5 left-5 hidden md:block">
+              <Badge>Made with &#10084; in NYC</Badge>
+            </div>
+          </>
+        )}
+        {loading && (
+          <div className={styles.preloader}>
+            <CustomLoader onLoadingComplete={() => setLoading(false)} />
           </div>
-        </>
-      )}
-      {loading && (
-        <div className={styles.preloader}>
-          <CustomLoader onLoadingComplete={() => setLoading(false)} />
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </LanguageProvider>
   );
 } 

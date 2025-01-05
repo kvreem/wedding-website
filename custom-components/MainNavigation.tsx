@@ -13,6 +13,7 @@ import dynamic from 'next/dynamic';
 import { useIdleTimer } from '@fancy/components/hooks/useIdleTimer';
 import CirclingElements from './CirclingElements';
 import DesktopIcons from './DesktopIcons';
+import { useLanguage } from '../translations/LanguageContext';
 
 const Screensaver = dynamic(() => import('@fancy/components/Screensaver'), {
   ssr: false,
@@ -25,6 +26,7 @@ interface MainNavigationProps {
 const MainNavigation: React.FC<MainNavigationProps> = ({ 
   temperature
 }) => {
+  const { language, setLanguage, t } = useLanguage();
   const { open } = useModals();
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [isCelsius, setIsCelsius] = React.useState(true);
@@ -147,7 +149,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
       <div ref={mainButtonRef}>
         <ActionButton onClick={handleMainClick}>
           <span style={{ display: 'flex', alignItems: 'center' }}>
-            Heidi &#10084; Kareem <span style={{ marginLeft: '4px', lineHeight: 1 }}>&#x2193;</span>
+            {t('navigation.mainButton')} <span style={{ marginLeft: '4px', lineHeight: 1 }}>&#x2193;</span>
           </span>
         </ActionButton>
       </div>
@@ -157,8 +159,8 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
   const right = (
     <div className={styles.weatherModule}>
       <span className={styles.weatherIcon}>&#9788;</span>
-      <span className="hidden md:inline">TEMPERATURE IN GOUNA: </span>
-      <span className="md:hidden">GOUNA: </span>
+      <span className="hidden md:inline">{t('navigation.temperature')}: </span>
+      <span className="md:hidden">{t('navigation.temperatureMobile')}: </span>
       <span>
         {temperature ? (
           `${isCelsius ? temperature : tempFahrenheit}${degreeSymbol}${isCelsius ? 'C' : 'F'}`
@@ -168,6 +170,9 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
       </span>
       <ActionButton onClick={() => setIsCelsius(!isCelsius)}>
         {isCelsius ? 'F' : 'C'}
+      </ActionButton>
+      <ActionButton onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}>
+        {language === 'en' ? 'ar-EG' : 'EN'}
       </ActionButton>
     </div>
   );

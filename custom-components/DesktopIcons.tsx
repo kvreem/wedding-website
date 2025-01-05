@@ -1,11 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
 import styles from './DesktopIcons.module.scss';
+import { useLanguage } from '../translations/LanguageContext';
 
 interface DesktopIcon {
   name: string;
   icon: string;
   onClick?: () => void;
+  translationKey: string;
 }
 
 interface DesktopIconsProps {
@@ -13,8 +15,12 @@ interface DesktopIconsProps {
 }
 
 const DesktopIcons: React.FC<DesktopIconsProps> = ({ icons }) => {
-  // Sort icons alphabetically by name
-  const sortedIcons = [...icons].sort((a, b) => a.name.localeCompare(b.name));
+  const { t } = useLanguage();
+  
+  // Sort icons alphabetically by translated name
+  const sortedIcons = [...icons].sort((a, b) => 
+    t(`desktopIcons.${a.translationKey}`).localeCompare(t(`desktopIcons.${b.translationKey}`))
+  );
 
   return (
     <div className={styles.desktopContainer}>
@@ -35,13 +41,15 @@ const DesktopIcons: React.FC<DesktopIconsProps> = ({ icons }) => {
           <div className={styles.icon}>
             <Image
               src={`/desktop-icons/${icon.icon}`}
-              alt={icon.name}
+              alt={t(`desktopIcons.${icon.translationKey}`)}
               width={24}
               height={24}
               className={styles.iconImage}
             />
           </div>
-          <span className={styles.iconLabel} data-icon={icon.name}>{icon.name}</span>
+          <span className={styles.iconLabel} data-icon={icon.name}>
+            {t(`desktopIcons.${icon.translationKey}`)}
+          </span>
         </div>
       ))}
     </div>

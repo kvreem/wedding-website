@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { LanguageProvider } from '../translations/LanguageContext';
 
 export const metadata: Metadata = {
   title: 'Heidi & Kareem',
@@ -41,7 +42,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="theme-light">
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );
