@@ -15,6 +15,21 @@
   }
 }
 
+@media (max-width: 768px) {
+  .screensaver ~ * {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  // Keep main navigation and background visible
+  .screensaver ~ :global(.mainNavigation),
+  .screensaver ~ :global(.background) {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
 .imageStack {
   position: absolute;
   width: 300px;

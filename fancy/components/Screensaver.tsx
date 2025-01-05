@@ -19,6 +19,13 @@ const Screensaver: React.FC<ScreensaverProps> = ({
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    document.body.classList.add(styles.hasScreensaver);
+    return () => {
+      document.body.classList.remove(styles.hasScreensaver);
+    };
+  }, []);
+
+  useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.matchMedia('(max-width: 768px)').matches);
     };
