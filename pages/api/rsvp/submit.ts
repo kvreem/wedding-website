@@ -1,6 +1,7 @@
 import { Client } from '@notionhq/client';
 import * as Server from '@common/server';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import { RSVPEmailService } from '../../../services/email/rsvpEmailService';
 
 const notion = new Client({
   auth: 'ntn_G21595951205JJ0TlF54wFQ1qW6M4eOLhNhId9voJV7c1r'
@@ -102,6 +103,17 @@ export default async function submitRSVP(req, res) {
       properties
     });
     console.log('Update response:', updateResponse);
+
+    // Send confirmation email if attending
+    if (attending && email) {
+      try {
+        await RSVPEmailService.sendRSVPConfirmation(email, name);
+        console.log('Confirmation email sent successfully');
+      } catch (emailError) {
+        console.error('Failed to send confirmation email:', emailError);
+        // Don't fail the RSVP process if email fails
+      }
+    }
 
     return res.status(200).json({ success: true });
 
