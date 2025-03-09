@@ -10,7 +10,7 @@ export interface EmailOptions {
 }
 
 export class EmailService {
-  private static DEFAULT_FROM = 'Heidi & Kareem Wedding <notifications@concierge.heidiandkareem.com>';
+  private static DEFAULT_FROM = 'Heidi & Kareem Wedding <concierge@heidiandkareem.com>';
 
   static async sendEmail({ to, subject, html, from = this.DEFAULT_FROM }: EmailOptions) {
     try {
