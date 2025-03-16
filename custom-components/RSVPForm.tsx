@@ -24,6 +24,8 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
   const [error, setError] = React.useState('');
   const [dietaryPreference, setDietaryPreference] = React.useState('no_preference');
   const [guestDietaryPreference, setGuestDietaryPreference] = React.useState('no_preference');
+  const [otherDietaryPreference, setOtherDietaryPreference] = React.useState('');
+  const [otherGuestDietaryPreference, setOtherGuestDietaryPreference] = React.useState('');
   const [isSubmitted, setIsSubmitted] = React.useState(false);
   const [attending, setAttending] = React.useState('yes');
   const [submitting, setSubmitting] = React.useState(false);
@@ -72,9 +74,11 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
           phone,
           attending: attending === 'yes',
           dietaryPreference,
+          dietaryNotes: dietaryPreference === 'other' ? otherDietaryPreference : undefined,
           ...(hasPlusOne && guestName && {
             guestName,
             guestDietaryPreference,
+            guestDietaryNotes: guestDietaryPreference === 'other' ? otherGuestDietaryPreference : undefined,
           }),
         }),
       });
@@ -114,6 +118,7 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
     { value: 'vegan', label: 'Vegan' },
     { value: 'dairy_free', label: 'Dairy Free' },
     { value: 'allergic_nuts', label: 'Allergic: Nuts' },
+    { value: 'other', label: 'Other' },
   ];
 
   if (isSubmitted) {
@@ -238,6 +243,17 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
                         options={dietaryOptions}
                         onValueChange={setDietaryPreference}
                       />
+                      {dietaryPreference === 'other' && (
+                        <div className="mt-2">
+                          <Input
+                            label="Please specify your dietary requirements"
+                            value={otherDietaryPreference}
+                            onChange={(e) => setOtherDietaryPreference(e.target.value)}
+                            placeholder="Enter your dietary requirements"
+                            required
+                          />
+                        </div>
+                      )}
                     </div>
 
                     {hasPlusOne && (
@@ -257,6 +273,17 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
                             options={dietaryOptions}
                             onValueChange={setGuestDietaryPreference}
                           />
+                          {guestDietaryPreference === 'other' && (
+                            <div className="mt-2">
+                              <Input
+                                label="Please specify guest's dietary requirements"
+                                value={otherGuestDietaryPreference}
+                                onChange={(e) => setOtherGuestDietaryPreference(e.target.value)}
+                                placeholder="Enter guest's dietary requirements"
+                                required
+                              />
+                            </div>
+                          )}
                         </div>
                       </>
                     )}
@@ -265,8 +292,8 @@ const RSVPForm: React.FC<RSVPFormProps> = ({ onClose }) => {
               </div>
 
               <div className="flex justify-end items-center gap-4 pt-4">
-                <ActionButton type="submit">
-                  Confirm RSVP
+                <ActionButton type="submit" disabled={submitting}>
+                  {submitting ? 'Submitting...' : 'Confirm RSVP'}
                 </ActionButton>
               </div>
             </form>

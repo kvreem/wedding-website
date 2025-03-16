@@ -20,8 +20,10 @@ export default async function submitRSVP(req, res) {
     phone,
     attending,
     dietaryPreference,
+    dietaryNotes,
     guestName,
-    guestDietaryPreference
+    guestDietaryPreference,
+    guestDietaryNotes
   } = req.body;
 
   console.log('Received RSVP submission:', {
@@ -30,8 +32,10 @@ export default async function submitRSVP(req, res) {
     phone,
     attending,
     dietaryPreference,
+    dietaryNotes,
     guestName,
-    guestDietaryPreference
+    guestDietaryPreference,
+    guestDietaryNotes
   });
 
   if (!name) {
@@ -60,29 +64,44 @@ export default async function submitRSVP(req, res) {
     const guestPage = response.results[0] as PageObjectResponse;
     console.log('Found guest page:', guestPage.id);
     
+    // Log all available properties
+    console.log('Available properties:', Object.keys(guestPage.properties));
+    console.log('Full properties:', JSON.stringify(guestPage.properties, null, 2));
+    
     // Update the guest's RSVP details
     console.log('Updating RSVP details...');
-    const properties: Record<string, any> = {
-      'RSVP Status': {
-        status: {
-          name: attending ? 'Yes' : 'No'
-        }
-      },
-      'Email': {
-        email: email || null
-      },
-      'Phone': {
-        phone_number: phone || null
-      },
-      'Dietary Preferences': {
-        multi_select: [{
-          name: dietaryPreference
-        }]
+    const updateProperties: Record<string, any> = {};
+
+    // Use property IDs for standard fields
+    updateProperties['vOs_'] = { // RSVP Status
+      status: {
+        name: attending ? 'Yes' : 'No'
       }
     };
 
+    updateProperties['_BSy'] = { // Email
+      email: email || null
+    };
+
+    updateProperties['ConT'] = { // Phone
+      phone_number: phone || null
+    };
+
+    updateProperties['yfWe'] = { // Dietary Preferences
+      multi_select: [{
+        name: dietaryPreference
+      }]
+    };
+
+    // Use the correct property names with IDs
+    if (dietaryNotes) {
+      updateProperties['zQIY'] = { // "Dietary Notes" (without the trailing space now)
+        rich_text: [{ type: 'text', text: { content: dietaryNotes } }]
+      };
+    }
+
     if (guestName) {
-      properties['Guest Name'] = {
+      updateProperties['zpaG'] = { // Guest Name
         rich_text: [{
           type: 'text',
           text: {
@@ -90,17 +109,24 @@ export default async function submitRSVP(req, res) {
           }
         }]
       };
-      properties['Guest Dietary Preferences'] = {
+      
+      updateProperties['U{mi'] = { // Guest Dietary Preferences
         multi_select: [{
           name: guestDietaryPreference
         }]
       };
+      
+      if (guestDietaryNotes) {
+        updateProperties['LvWS'] = { // Guest Dietary Notes
+          rich_text: [{ type: 'text', text: { content: guestDietaryNotes } }]
+        };
+      }
     }
 
-    console.log('Update data:', JSON.stringify({ page_id: guestPage.id, properties }, null, 2));
+    console.log('Update data:', JSON.stringify({ page_id: guestPage.id, properties: updateProperties }, null, 2));
     const updateResponse = await notion.pages.update({
       page_id: guestPage.id,
-      properties
+      properties: updateProperties
     });
     console.log('Update response:', updateResponse);
 
