@@ -159,7 +159,7 @@ const CustomLoader: React.FC<CustomLoaderProps> = ({ onLoadingComplete }) => {
             <div className={styles.prompt}>
               {isMobile ? `TAP TO ENTER [${countdown}]` : `PRESS SPACE TO ENTER [${countdown}]`}
               <br />
-              BY ENTERING YOU AGREE TO RSVP BY 04-01-2025 
+              BY ENTERING YOU AGREE TO RSVP BY 05-15-2025 
             </div>
           )}
         </>
