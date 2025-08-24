@@ -7,18 +7,22 @@ export interface EmailOptions {
   subject: string;
   html: string;
   from?: string;
+  cc?: string[];
+  bcc?: string[];
 }
 
 export class EmailService {
   private static DEFAULT_FROM = 'Heidi & Kareem Wedding <concierge@heidiandkareem.com>';
 
-  static async sendEmail({ to, subject, html, from = this.DEFAULT_FROM }: EmailOptions) {
+  static async sendEmail({ to, subject, html, from = this.DEFAULT_FROM, cc, bcc }: EmailOptions) {
     try {
       const { data, error } = await resend.emails.send({
         from,
         to,
         subject,
         html,
+        ...(cc && { cc }),
+        ...(bcc && { bcc }),
       });
 
       if (error) {
