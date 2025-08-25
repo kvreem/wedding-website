@@ -57,8 +57,8 @@ const VenueSection: React.FC<VenueSectionProps> = ({ onClose }) => {
                   <Card title="WELCOME PARTY">
                     <div className={styles.imageContainer}>
                       <Image
-                        src="/images/welcomeparty.jpg"
-                        alt="Welcome Party Setup"
+                        src="/images/villacoconut.jpg"
+                        alt="Villa Coconut Welcome Party"
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
                         className={styles.image}
@@ -68,7 +68,7 @@ const VenueSection: React.FC<VenueSectionProps> = ({ onClose }) => {
                     </div>
                     <div className={styles.eventTime}>
                       <span className={styles.attire}>Evening</span>
-                      <span className={styles.attire}>Desert Oasis</span>
+                      <span className={styles.attire}>Villa Coconut - Invite only</span>
                     </div>
                   </Card>
                 </div>

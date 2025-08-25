@@ -31,18 +31,6 @@ const StaysSection: React.FC<StaysSectionProps> = ({ onClose }) => {
                   <div className={styles.badgeContainer}><Badge>5 min from venue</Badge></div>
                 </Card>
               </div>
-           
-              <div className={styles.hotelCard}>
-                <Card title="SHERATON">
-                  <div className={styles.imageContainer}>
-                    <Image src="/images/sheraton.jpg" alt="Sheraton El Gouna" fill sizes="(max-width: 768px) 100vw, 33vw" className={styles.image} priority />
-                  </div>
-                  <Button theme="PRIMARY" onClick={() => window.open('https://www.marriott.com/en-us/hotels/hrgsi-sheraton-miramar-resort-el-gouna/overview/', '_blank')}>
-                    Visit Website
-                  </Button>
-                  <div className={styles.badgeContainer}><Badge>9 min from venue</Badge></div>
-                </Card>
-              </div>
           
               <div className={styles.hotelCard}>
                 <Card title="COOKS CLUB">
