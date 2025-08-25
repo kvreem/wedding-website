@@ -74,7 +74,7 @@ async function testResendConnection() {
       html: '<p>This is a test email to verify Resend API connectivity.</p>',
     });
     
-    console.log('Success! Email sent with ID:', data.id);
+    console.log('Success! Email sent successfully');
     console.log('Full response:', JSON.stringify(data, null, 2));
     return true;
   } catch (error) {
